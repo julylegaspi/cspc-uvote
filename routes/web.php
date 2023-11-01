@@ -19,6 +19,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\StoreVoteController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Livewire\ElectionResource\CreateElection;
+use App\Livewire\ElectionResource\EditElection;
 use App\Livewire\ElectionResource\ListElections;
 
 Route::middleware('guest')->group(function() {
@@ -36,8 +38,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/users', User::class)->name('users');
     Route::get('/positions', Position::class)->name('positions');
     Route::prefix('elections')->group(function () {
-        Route::get('/', ListElections::class)->name('elections.index');
+        Route::get('/', ListElections::class)->name('elections.index')->lazy();
+        Route::get('/create', CreateElection::class)->name('elections.create')->lazy();
+        Route::get('/{election}/edit', EditElection::class)->name('elections.edit')->lazy();
     });
+
     Route::get('/faqs', Faq::class)->name('faqs');
 
 });

@@ -74,7 +74,7 @@ class Voting extends Component
 
     public function getProfileInfo(User $user): void
     {
-        $this->partylist = $user->party_list->name;
+        $this->partylist = $user->partylist->name;
         $this->name = $user->name;
         $this->address = $user->address;
         $this->birthday = $user->birthday;

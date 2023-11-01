@@ -27,11 +27,16 @@ class Election extends Model
 
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class, 'election_course')->withTimestamps();
+        return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
     public function partylists(): BelongsToMany
     {
-        return $this->belongsToMany(PartyList::class, 'election_party_list')->withTimestamps();
+        return $this->belongsToMany(Partylist::class)->withTimestamps();
+    }
+
+    public function candidates(): HasMany
+    {
+        return $this->hasMany(Candidate::class);
     }
 }

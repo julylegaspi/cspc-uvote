@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('party_list_id')->nullable();
+            $table->integer('partylist_id')->nullable();
             $table->text('address')->nullable();
             $table->date('birthday')->nullable();
             $table->text('organizational_affiliation')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('party_list_id');
+            $table->dropColumn('partylist_id');
             $table->dropColumn('address');
             $table->dropColumn('birthday');
             $table->dropColumn('organizational_affiliation');

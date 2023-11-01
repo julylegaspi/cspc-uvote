@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('party_lists', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->string('name');
-            $table->string('color');
+        Schema::create('candidates', function (Blueprint $table) {
+            $table->foreignUuid('election_id')->constrained();
+            $table->foreignId('partylist_id')->constrained();
+            $table->foreignId('position_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('party_lists');
+        Schema::dropIfExists('candidates');
     }
 };

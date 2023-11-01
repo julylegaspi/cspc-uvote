@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('partylists', function (Blueprint $table) {
-            $table->text('photo')->after('color')->nullable();
+        Schema::create('partylists', function (Blueprint $table) {
+            $table->id();
+            $table->string('code');
+            $table->string('name');
+            $table->string('color');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('partylists', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
+        Schema::dropIfExists('partylists');
     }
 };

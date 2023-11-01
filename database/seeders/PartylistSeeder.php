@@ -38,7 +38,7 @@ class PartylistSeeder extends Seeder
         ];
 
         foreach ($partylists as $partylist) {
-            DB::table('party_lists')->insert([
+            DB::table('partylists')->insert([
                 'code' => $partylist['code'],
                 'name' => $partylist['name'],
                 'color' => $partylist['color']

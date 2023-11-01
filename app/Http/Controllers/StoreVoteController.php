@@ -58,7 +58,7 @@ class StoreVoteController extends Controller
             $mail_data['votes'][] = [
                 'position' => $vote->position->name,
                 'candidate' => $vote->candidate->name,
-                'candidate_partylist' => $vote->candidate->party_list->name
+                'candidate_partylist' => $vote->candidate->partylist->name
             ];
         }
 

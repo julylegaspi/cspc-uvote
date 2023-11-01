@@ -37,13 +37,13 @@ class HomePage extends Component
                 array_push($candidates_id, $candidate['candidate_id']);
             }
 
-            $party_lists = User::whereIn('id', $candidates_id)->with('party_list')->get()->groupBy('party_list.name');
+            $partylists = User::whereIn('id', $candidates_id)->with('partylist')->get()->groupBy('partylist.name');
             
 
             $elections_data[] = [
                 'election_id' => $election->id,
                 'organization' => $election->organization,
-                'partylists' => $party_lists
+                'partylists' => $partylists
             ];
         }
 

@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'section_id' => 1,
             'gender' => $this->faker->randomElement(['m', 'f']),
             'is_active' => true,
-            'party_list_id' => PartyList::all()->random()->id,
+            'partylist_id' => PartyList::all()->random()->id,
             'address' => $this->faker->address(),
             'birthday' => $this->faker->dateTimeBetween('1990-01-01', '2012-12-31'),
             'organizational_affiliation' => $this->faker->paragraph(10),

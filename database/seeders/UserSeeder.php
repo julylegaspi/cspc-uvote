@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             'gender' => 'm',
             'is_active' => true,
             'is_admin' => true,
-            'party_list_id' => 1,
+            'partylist_id' => 1,
         ]);
     }
 }

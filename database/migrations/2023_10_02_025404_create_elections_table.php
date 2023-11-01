@@ -16,8 +16,13 @@ return new class extends Migration
             $table->foreignId('organization_id')->constrained()->onDelete('cascade');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->json('candidates')->nullable();
             $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('election_partylist', function (Blueprint $table) {
+            $table->foreignUuid('election_id')->constrained();
+            $table->foreignId('partylist_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,5 +33,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('elections');
+        Schema::dropIfExists('election_partylist');
     }
 };

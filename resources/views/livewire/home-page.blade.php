@@ -41,11 +41,11 @@
                 <div class="flex mb-10 items-center justify-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
                     
                     @foreach ($present_election['partylists'] as $key => $partylist)
-                        @if (is_null($partylist[0]['party_list']['photo']))
-                            <img src="https://ui-avatars.com/api/?size=256&background=random&name={{ $partylist[0]['party_list']['name'] }}"
+                        @if (is_null($partylist[0]['partylist']['photo']))
+                            <img src="https://ui-avatars.com/api/?size=256&background=random&name={{ $partylist[0]['partylist']['name'] }}"
                                 class="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" alt="organization logo">
                         @else
-                            <img src="{{ asset('storage/' . $partylist[0]['party_list']['photo']) }}"
+                            <img src="{{ asset('storage/' . $partylist[0]['partylist']['photo']) }}"
                                 class="rounded-full w-20 h-20 ring-2 ring-gray-300 dark:ring-gray-500" alt="organization logo">
                         @endif
                         
