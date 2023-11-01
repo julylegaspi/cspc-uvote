@@ -22,6 +22,8 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Livewire\ElectionResource\CreateElection;
 use App\Livewire\ElectionResource\EditElection;
 use App\Livewire\ElectionResource\ListElections;
+use App\Livewire\ElectionResult;
+use App\Livewire\ThankYouMessage;
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -58,9 +60,11 @@ Route::get('/faq', Faq::class);
 Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(function () {
     Route::get('/{election}', Voting::class)->name('start.voting');
     Route::post('/{election}', [StoreVoteController::class, 'store'])->name('vote.store');
+    Route::get('/{election}/thank-you', ThankYouMessage::class)->name('thank-you.index');
+    Route::get('/{election}/result', ElectionResult::class)->name('election.result');
 });
 
 Route::post('/logout', LogOutController::class)->name('logout');
 
-Route::get('/auth/google', [GoogleAuthController::class, 'signin']);
+Route::get('/auth/google', [GoogleAuthController::class, 'signin'])->name('google.login');
 Route::get('/callback', [GoogleAuthController::class, 'callback']);

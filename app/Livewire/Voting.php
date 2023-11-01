@@ -7,12 +7,11 @@ use App\Models\Vote;
 use Livewire\Component;
 use App\Models\Election;
 use App\Models\Position;
+use Livewire\Attributes\Layout;
 
 class Voting extends Component
 {
     public Election $election;
-
-    public $candidates = [];
 
     public $partylist;
     public $name;
@@ -33,6 +32,7 @@ class Voting extends Component
 
     public function mount(Election $election)
     {
+        // abort if voted 
         if ($this->checkIfVoted($election))
         {
             abort(403, 'You have already cast your vote in this election.');
@@ -42,6 +42,7 @@ class Voting extends Component
 
         $present = $election->where('start', '<=', $currentDateTime)->where('end', '>=', $currentDateTime)->first();
         
+        // abort if not present election
         if (!$present)
         {
             abort(403);
@@ -49,6 +50,7 @@ class Voting extends Component
 
         $course = $election->courses->where('id', auth()->user()->course_id)->first();
         
+        // abort if course is not belong to the voter
         if ($course === null)
         {
             abort(403);
@@ -58,18 +60,9 @@ class Voting extends Component
 
     }
 
-    public function getCandidates(): void
+    public function getCandidates()
     {
-        $candidates = [];
-
-        foreach ($this->election->candidates as $candidate) {
-            $candidates[] = [
-                'position' => Position::find($candidate['position_id']),
-                'candidate' => User::find($candidate['candidate_id'])
-            ];
-        }
-        
-        $this->candidates = collect($candidates)->groupBy('position.name');
+        return $this->election->candidates->groupBy('position.name');
     }
 
     public function getProfileInfo(User $user): void
@@ -105,10 +98,11 @@ class Voting extends Component
         $this->platform = "";
     }
 
+    #[Layout('components.layouts.guest.app')]
     public function render()
     {
         return view('livewire.voting', [
-            'positions' => $this->getCandidates(),
+            'candidates' => $this->getCandidates(),
         ]);
     }
 }

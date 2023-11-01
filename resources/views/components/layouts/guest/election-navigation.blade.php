@@ -1,4 +1,4 @@
-<ul wire:ignore class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+<ul wire:ignore class="flex flex-wrap items-center justify-between block text-sm font-medium text-center text-gray-500 dark:text-gray-400">
     <li class="mr-2">
         <a href="{{ route('home') }}" class="{{ (in_array(request()->segment(1), ['', 'election'])) ? 'inline-flex px-4 py-3 text-white bg-blue-600 rounded-lg active' : 'inline-flex inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white' }}"
             aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

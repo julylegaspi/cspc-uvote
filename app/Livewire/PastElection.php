@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Election;
+use Livewire\Attributes\Layout;
 
 class PastElection extends Component
 {
@@ -18,6 +19,8 @@ class PastElection extends Component
     {
         return Election::where('end', '<', $this->currentDateTime)->get();
     }
+
+    #[Layout('components.layouts.guest.app')]
     public function render()
     {
         return view('livewire.past-election', [

@@ -1,11 +1,12 @@
 <div>
     <section class="container mx-auto p-4 max-w-screen-xl">
 
-        @include('components.layouts.election-navigation')
+        @include('components.layouts.guest.election-navigation')
 
     </section>
 
     <section class="container mx-auto p-4 max-w-screen-xl">
+        @include('components.layouts.flash')
         <form action="{{ route('vote.store', $election) }}" method="post">
             @csrf
 
@@ -34,7 +35,7 @@
                 <div class="col-span-3">
                     <div id="electionTabContent">
                         @foreach ($candidates as $key => $candidate)
-                            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+                            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" wire:ignore
                                 id="position{{ $loop->index }}" role="tabpanel"
                                 aria-labelledby="{{ $loop->index }}-tab">
                                 <h5 class="mb-5 text-3xl font-bold text-gray-900 dark:text-white"
@@ -43,26 +44,32 @@
                                 <ul class="mb-10 grid w-full gap-6 md:grid-cols-4 sm:grid-cols-2">
                                     @foreach ($candidate as $cKey => $cValue)
                                         <li class="text-center">
-                                            <input type="radio" id="{{ $cValue['candidate']->id }}"
-                                                name="{{ $cValue['position']->id }}"
-                                                value="{{ $cValue['candidate']->id }}" class="hidden peer">
-                                            <label for="{{ $cValue['candidate']->id }}"
+                                            <input type="radio" id="{{ $cValue->user->id }}"
+                                                name="{{ $cValue['position']->id }}" value="{{ $cValue->user->id }}"
+                                                class="hidden peer">
+                                            <label for="{{ $cValue->user->id }}"
                                                 class="border-2 p-1 flex items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                @if (is_null($cValue['candidate']->photo))
-                                                    <img src="https://ui-avatars.com/api/?size=100&name={{ $cValue['candidate']->name }}"
+                                                @if (is_null($cValue->user->photo))
+                                                    <img src="https://ui-avatars.com/api/?size=100&name={{ $cValue->user->name }}"
                                                         class="w-full rounded-lg" alt="">
                                                 @else
-                                                    <img src="{{ asset('storage/' . $cValue['candidate']->photo) }}"
+                                                    <img src="{{ asset('storage/' . $cValue->user->photo) }}"
                                                         class="w-full rounded-lg" alt="">
                                                 @endif
                                             </label>
-                                            <button type="button"
+                                            <button type="button" title="View candidate profile"
                                                 class="inline-flex items-center ml-2 text-sm font-medium text-gray-600 md:ml-2 dark:gray-blue-500 hover:underline"
                                                 data-drawer-target="drawer-right-example"
                                                 data-drawer-show="drawer-right-example" data-drawer-placement="right"
                                                 aria-controls="drawer-right-example"
-                                                wire:click.prefetch="getProfileInfo({{ $cValue['candidate']->id }})">
-                                                {{ $cValue['candidate']->name }}
+                                                wire:click.prefetch="getProfileInfo({{ $cValue->user->id }})">
+                                                <svg class="w-3 h-3 mr-1" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                                </svg>
+                                                {{ $cValue->user->name }}
 
                                             </button>
                                         </li>
@@ -128,7 +135,8 @@
             <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Course & Section:</p>
             <p class="mb-3">{{ $course }} - {{ $section }}</p>
 
-            <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Organizational Affiliation:
+            <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Organizational
+                Affiliation:
             </p>
             <p class="mb-3">{{ $organizational_affiliation }}</p>
 

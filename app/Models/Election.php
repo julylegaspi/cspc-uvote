@@ -16,10 +16,6 @@ class Election extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'candidates' => 'array'
-    ];
-
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
@@ -38,5 +34,10 @@ class Election extends Model
     public function candidates(): HasMany
     {
         return $this->hasMany(Candidate::class);
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(Vote::class);
     }
 }

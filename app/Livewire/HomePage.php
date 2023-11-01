@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Election;
+use Livewire\Attributes\Layout;
 
 class HomePage extends Component
 {
@@ -27,31 +28,16 @@ class HomePage extends Component
         $elections = Election::where('start', '<=', $this->currentDateTime)
             ->where('end', '>=', $this->currentDateTime)
             ->with('organization')
+            ->latest()
             ->get();
 
-        $elections_data = [];
-        $candidates_id = [];
-
-        foreach ($elections as $election) {
-            foreach ($election->candidates as $candidate) {
-                array_push($candidates_id, $candidate['candidate_id']);
-            }
-
-            $partylists = User::whereIn('id', $candidates_id)->with('partylist')->get()->groupBy('partylist.name');
-            
-
-            $elections_data[] = [
-                'election_id' => $election->id,
-                'organization' => $election->organization,
-                'partylists' => $partylists
-            ];
-        }
-
-        return $elections_data;
+        return $elections;
     }
 
+    #[Layout('components.layouts.guest.app')]
     public function render()
     {
+
         return view('livewire.home-page', [
             'present_elections' => $this->readyToLoad
                 ? $this->getPresentElections()

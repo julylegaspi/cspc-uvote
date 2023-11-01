@@ -17,7 +17,7 @@ class StoreVoteController extends Controller
 
         if (count($data) <= 0)
         {
-            die('select at least one candidate');
+            return back()->with('error', 'Please select at least one candidate.');
         }
 
         if ($this->checkIfVoted($election))
@@ -25,7 +25,8 @@ class StoreVoteController extends Controller
             abort(403, 'You have already cast your vote in this election.');
         }
 
-        $reference_number = Str::uuid();
+        $reference_number = Str::random(6) . '-' . Str::random(1) . '-' . Str::random(3);
+
         foreach ($data as $key => $vote) {
             Vote::create([
                 'election_id' => $election->id,
@@ -36,7 +37,7 @@ class StoreVoteController extends Controller
             ]);
         }
 
-        
+        //TODO dispatch to an event
 
         $votes = Vote::where('user_id', auth()->user()->id)
             ->where('election_id', $election->id)
@@ -64,8 +65,7 @@ class StoreVoteController extends Controller
 
         Mail::to(auth()->user()->email)->send(new VoterConfirmation($mail_data));
 
-        session()->flash('message', "Thank you for casting your vote.");
-        return redirect('/');
+        return redirect()->route('thank-you.index', $election);
     }
 
     public function checkIfVoted(Election $election)

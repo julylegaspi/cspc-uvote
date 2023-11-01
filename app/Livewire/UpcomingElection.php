@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Election;
+use Livewire\Attributes\Layout;
 
 class UpcomingElection extends Component
 {
@@ -19,6 +20,7 @@ class UpcomingElection extends Component
         return Election::where('start', '>', $this->currentDateTime)->get();
     }
 
+    #[Layout('components.layouts.guest.app')]
     public function render()
     {
         return view('livewire.upcoming-election', [

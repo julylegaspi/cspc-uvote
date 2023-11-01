@@ -25,6 +25,13 @@ class CreateElection extends Component
         'start_date' => 'required|date|after_or_equal:now',
         'end_date' => 'required|date|after_or_equal:start_date',
         'partylist' => 'required',
+        'candidates.*.candidates.*.position' => 'required',
+        'candidates.*.candidates.*.user' => 'required'
+    ];
+
+    protected $messages = [
+        'candidates.*.candidates.*.position' => 'Please select position.',
+        'candidates.*.candidates.*.user' => 'Please select candidate.'
     ];
 
     public function save()
@@ -65,8 +72,8 @@ class CreateElection extends Component
                     'partylist_name' => PartyList::find($partylist)->name,
                     'candidates' => [
                         [
-                            'position' => 1,
-                            'user' => 1
+                            'position' => '',
+                            'user' => ''
                         ]
                     ],
                 ];
@@ -85,8 +92,8 @@ class CreateElection extends Component
     public function addCandidate($key)
     {
         array_push($this->candidates[$key]['candidates'], [
-            'position' => 1,
-            'user' => 1
+            'position' => '',
+            'user' => ''
         ]);
 
     }
