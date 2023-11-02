@@ -10,7 +10,7 @@ class ThankYouMessage extends Component
 {
     public Election $election;
 
-    public function mount(Election $election)
+    public function mount(Election $election): void
     {
         $this->election = $election;
     }

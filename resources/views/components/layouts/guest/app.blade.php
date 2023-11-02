@@ -10,10 +10,10 @@
     
         @stack('styles')
     </head>
-    <body>
+    <body class="margin-bottom-30">
         @include('components.layouts.guest.navigation')
         {{ $slot }}
-        @include('components.layouts.guest.footer')
+        {{-- @include('components.layouts.guest.footer') --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
         @stack('scripts')
     </body>

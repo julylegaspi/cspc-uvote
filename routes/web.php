@@ -61,7 +61,7 @@ Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(funct
     Route::get('/{election}', Voting::class)->name('start.voting');
     Route::post('/{election}', [StoreVoteController::class, 'store'])->name('vote.store');
     Route::get('/{election}/thank-you', ThankYouMessage::class)->name('thank-you.index');
-    Route::get('/{election}/result', ElectionResult::class)->name('election.result');
+    Route::get('/{election}/results', ElectionResult::class)->name('election.result');
 });
 
 Route::post('/logout', LogOutController::class)->name('logout');
