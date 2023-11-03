@@ -7,7 +7,6 @@ use App\Livewire\Voting;
 use App\Livewire\HomePage;
 use App\Livewire\Dashboard;
 use App\Livewire\Partylist;
-use App\Livewire\Organization;
 use App\Livewire\PastElection;
 use App\Livewire\ElectionResult;
 use App\Livewire\ThankYouMessage;
@@ -35,6 +34,9 @@ use App\Livewire\PositionResource\CreatePosition;
 use App\Livewire\DepartmentResource\EditDepartment;
 use App\Livewire\DepartmentResource\ListDepartments;
 use App\Livewire\DepartmentResource\CreateDepartment;
+use App\Livewire\OrganizationResource\EditOrganization;
+use App\Livewire\OrganizationResource\ListOrganizations;
+use App\Livewire\OrganizationResource\CreateOrganization;
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -63,7 +65,12 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/{section}/edit', EditSection::class)->name('sections.edit')->lazy();
     });
 
-    Route::get('/organizations', Organization::class)->name('organizations');
+    Route::prefix('organizations')->group(function () {
+        Route::get('/', ListOrganizations::class)->name('organizations.index');
+        Route::get('/create', CreateOrganization::class)->name('organizations.create');
+        Route::get('/{organization}/edit', EditOrganization::class)->name('organizations.edit')->lazy();
+    });
+
     Route::get('/partylists', Partylist::class)->name('partylists');
     Route::get('/users', User::class)->name('users');
     
