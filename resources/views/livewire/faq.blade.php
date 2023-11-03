@@ -3,7 +3,7 @@
         <h2
             class="mb-4 text-2xl font-bold text-gray-900 lg:font-extrabold lg:text-4xl lg:leading-snug dark:text-white lg:text-center 2xl:px-48">
             Frequently asked questions</h2>
-        <p class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400 lg:text-center lg:text-xl xl:px-64 lg:mb-16">
+        <p class="mb-1 text-lg font-normal text-gray-500 dark:text-gray-400 lg:text-center lg:text-xl xl:px-64 lg:mb-12">
             Search for the questions that are frequently asked about Election</p>
 
         <div id="accordion-flush" data-accordion="collapse"
