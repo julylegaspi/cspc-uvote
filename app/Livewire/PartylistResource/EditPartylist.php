@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Livewire\OrganizationResource;
+namespace App\Livewire\PartylistResource;
 
 use Livewire\Component;
-use App\Models\Organization;
+use App\Models\Partylist;
 use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 
-class EditOrganization extends Component
+class EditPartylist extends Component
 {
     use WithFileUploads;
 
-    public Organization $organization;
+    public Partylist $partylist;
     
     #[Rule('required|string')]
     public $code;
@@ -29,18 +29,18 @@ class EditOrganization extends Component
         $this->removedLogo = 'yes';
     }
 
-    public function mount(Organization $organization)
+    public function mount(Partylist $partylist)
     {
-        $this->organization = $organization;
-        $this->code = $organization->code;
-        $this->name = $organization->name;
+        $this->partylist = $partylist;
+        $this->code = $partylist->code;
+        $this->name = $partylist->name;
     }
 
     public function update()
     {
         
-        $this->organization->code = $this->code;
-        $this->organization->name = $this->name;
+        $this->partylist->code = $this->code;
+        $this->partylist->name = $this->name;
 
         if ($this->removedLogo == 'yes')
         {
@@ -49,19 +49,19 @@ class EditOrganization extends Component
                 $this->addError('photo', 'The photo is required.');
                 return false;
             }
-            $photo = $this->photo->store('organization-photo');
-            $this->organization->photo = $photo;
+            $photo = $this->photo->store('partylist-photo');
+            $this->partylist->photo = $photo;
         }
 
-        $this->organization->save();
+        $this->partylist->save();
 
         session()->flash('success', 'Organizaiton updated.');
 
-        $this->redirect(ListOrganizations::class);
+        $this->redirect(ListPartylists::class);
     }
     
     public function render()
     {
-        return view('livewire.organization-resource.edit-organization');
+        return view('livewire.partylist-resource.edit-partylist');
     }
 }
