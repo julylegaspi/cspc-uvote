@@ -21,8 +21,11 @@ use App\Livewire\CourseResource\EditCourse;
 use App\Livewire\CourseResource\ListCourses;
 use App\Http\Controllers\StoreVoteController;
 use App\Livewire\CourseResource\CreateCourse;
+use App\Livewire\SectionResource\EditSection;
 use App\Http\Controllers\GoogleAuthController;
+use App\Livewire\SectionResource\ListSections;
 use App\Livewire\ElectionResource\EditElection;
+use App\Livewire\SectionResource\CreateSection;
 use App\Livewire\ElectionResource\ListElections;
 use App\Livewire\ElectionResource\CreateElection;
 use App\Livewire\DepartmentResource\EditDepartment;
@@ -42,14 +45,20 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/create', CreateDepartment::class)->name('departments.create');
         Route::get('/{department}/edit', EditDepartment::class)->name('departments.edit')->lazy();
     });
-    
+
     Route::prefix('courses')->group(function () {
         Route::get('/', ListCourses::class)->name('courses.index');
         Route::get('/create', CreateCourse::class)->name('courses.create');
         Route::get('/{course}/edit', EditCourse::class)->name('courses.edit')->lazy();
 
     });
-    Route::get('/sections', Section::class)->name('sections');
+    
+    Route::prefix('sections')->group(function () {
+        Route::get('/', ListSections::class)->name('sections.index');
+        Route::get('/create', CreateSection::class)->name('sections.create');
+        Route::get('/{section}/edit', EditSection::class)->name('sections.edit')->lazy();
+    });
+
     Route::get('/organizations', Organization::class)->name('organizations');
     Route::get('/partylists', Partylist::class)->name('partylists');
     Route::get('/users', User::class)->name('users');

@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('sections') }}"
+                        <a href="{{ route('sections.index') }}"
                             class="{{(request()->segment(1) == 'sections') ? 'flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700 bg-gray-100 dark:bg-gray-700' : 'flex text-white items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
