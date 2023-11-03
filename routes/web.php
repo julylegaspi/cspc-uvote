@@ -5,7 +5,6 @@ use App\Livewire\User;
 // use App\Livewire\CompleteProfile;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
-use App\Livewire\Position;
 use App\Livewire\Dashboard;
 use App\Livewire\Partylist;
 use App\Livewire\Organization;
@@ -13,7 +12,10 @@ use App\Livewire\PastElection;
 use App\Livewire\ElectionResult;
 use App\Livewire\ThankYouMessage;
 use App\Livewire\UpcomingElection;
+use App\Livewire\FaqResource\EditFaq;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\FaqResource\ListFaqs;
+use App\Livewire\FaqResource\CreateFaq;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
 use App\Livewire\CourseResource\EditCourse;
@@ -72,12 +74,16 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     });
 
     Route::prefix('elections')->group(function () {
-        Route::get('/', ListElections::class)->name('elections.index')->lazy();
-        Route::get('/create', CreateElection::class)->name('elections.create')->lazy();
+        Route::get('/', ListElections::class)->name('elections.index');
+        Route::get('/create', CreateElection::class)->name('elections.create');
         Route::get('/{election}/edit', EditElection::class)->name('elections.edit')->lazy();
     });
 
-    Route::get('/faqs', Faq::class)->name('faqs');
+    Route::prefix('faqs')->group(function () {
+        Route::get('/', ListFaqs::class)->name('faqs.index');
+        Route::get('/create', CreateFaq::class)->name('faqs.create');
+        Route::get('/{faq}/edit', EditFaq::class)->name('faqs.edit')->lazy();
+    });
 
 });
 
