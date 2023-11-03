@@ -4,7 +4,6 @@ use App\Livewire\Faq;
 use App\Livewire\User;
 // use App\Livewire\CompleteProfile;
 use App\Livewire\Voting;
-use App\Livewire\Section;
 use App\Livewire\HomePage;
 use App\Livewire\Position;
 use App\Livewire\Dashboard;
@@ -25,9 +24,12 @@ use App\Livewire\SectionResource\EditSection;
 use App\Http\Controllers\GoogleAuthController;
 use App\Livewire\SectionResource\ListSections;
 use App\Livewire\ElectionResource\EditElection;
+use App\Livewire\PositionResource\EditPosition;
 use App\Livewire\SectionResource\CreateSection;
 use App\Livewire\ElectionResource\ListElections;
+use App\Livewire\PositionResource\ListPositions;
 use App\Livewire\ElectionResource\CreateElection;
+use App\Livewire\PositionResource\CreatePosition;
 use App\Livewire\DepartmentResource\EditDepartment;
 use App\Livewire\DepartmentResource\ListDepartments;
 use App\Livewire\DepartmentResource\CreateDepartment;
@@ -62,7 +64,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/organizations', Organization::class)->name('organizations');
     Route::get('/partylists', Partylist::class)->name('partylists');
     Route::get('/users', User::class)->name('users');
-    Route::get('/positions', Position::class)->name('positions');
+    
+    Route::prefix('positions')->group(function () {
+        Route::get('/', ListPositions::class)->name('positions.index');
+        Route::get('/create', CreatePosition::class)->name('positions.create');
+        Route::get('/{position}/edit', EditPosition::class)->name('positions.edit')->lazy();
+    });
+
     Route::prefix('elections')->group(function () {
         Route::get('/', ListElections::class)->name('elections.index')->lazy();
         Route::get('/create', CreateElection::class)->name('elections.create')->lazy();
