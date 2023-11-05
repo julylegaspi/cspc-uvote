@@ -24,6 +24,11 @@ class User extends Authenticatable
         0 => 'No',
     ];
 
+    public const ROLE = [
+        0 => 'Student',
+        1 => 'Admin',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

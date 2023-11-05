@@ -1,7 +1,6 @@
 <?php
 
 use App\Livewire\Faq;
-use App\Livewire\User;
 // use App\Livewire\CompleteProfile;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
@@ -14,7 +13,10 @@ use App\Livewire\FaqResource\EditFaq;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\FaqResource\ListFaqs;
 use App\Livewire\FaqResource\CreateFaq;
+use App\Livewire\UserResource\EditUser;
+use App\Livewire\UserResource\ListUsers;
 use App\Http\Controllers\LoginController;
+use App\Livewire\UserResource\CreateUser;
 use App\Http\Controllers\LogOutController;
 use App\Livewire\CourseResource\EditCourse;
 use App\Livewire\CourseResource\ListCourses;
@@ -79,7 +81,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/{partylist}/edit', EditPartylist::class)->name('partylists.edit')->lazy();
     });
     
-    Route::get('/users', User::class)->name('users');
+    Route::prefix('users')->group(function () {
+        Route::get('/', ListUsers::class)->name('users.index');
+        Route::get('/create', CreateUser::class)->name('users.create');
+        Route::get('/{user}/edit', EditUser::class)->name('users.edit')->lazy();
+    });
     
     Route::prefix('positions')->group(function () {
         Route::get('/', ListPositions::class)->name('positions.index');
