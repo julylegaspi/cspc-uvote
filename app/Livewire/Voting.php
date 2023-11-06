@@ -45,7 +45,7 @@ class Voting extends Component
         // abort if not present election
         if (!$present)
         {
-            abort(403);
+            abort(403, 'Election is not on-going.');
         }
 
         $course = $election->courses->where('id', auth()->user()->course_id)->first();
@@ -53,7 +53,7 @@ class Voting extends Component
         // abort if course is not belong to the voter
         if ($course === null)
         {
-            abort(403);
+            abort(403, 'Election is not belong to your course.');
         }
 
         $this->election = $election;
