@@ -9,7 +9,7 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
                     <div class="col-span-2">
                         <label for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name*</label>
                         <input type="text" id="name" wire:model="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         @error('name')
@@ -18,7 +18,7 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="email"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email*</label>
                         <input type="email" id="email" wire:model="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         @error('email')
@@ -36,26 +36,28 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="course"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
-                            <select id="course" wire:model="course" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Select option</option>
-                                @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->name }}</option>
-                                @endforeach
-                            </select>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course*</label>
+                        <select id="course" wire:model="course"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="">Select option</option>
+                            @foreach ($courses as $course)
+                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                            @endforeach
+                        </select>
                         @error('course')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label for="section"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section</label>
-                            <select id="section" wire:model="section" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Select option</option>
-                                @foreach ($sections as $section)
-                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                @endforeach
-                            </select>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section*</label>
+                        <select id="section" wire:model="section"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="">Select option</option>
+                            @foreach ($sections as $section)
+                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                            @endforeach
+                        </select>
                         @error('section')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
@@ -63,12 +65,13 @@
                     <div class="sm:col-span-2">
                         <label for="partylist"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Partylist</label>
-                            <select id="partylist" wire:model="partylist" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Select option</option>
-                                @foreach ($partylists as $partylist)
-                                    <option value="{{ $partylist->id }}">{{ $partylist->name }}</option>
-                                @endforeach
-                            </select>
+                        <select id="partylist" wire:model="partylist"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="">Select option</option>
+                            @foreach ($partylists as $partylist)
+                                <option value="{{ $partylist->id }}">{{ $partylist->name }}</option>
+                            @endforeach
+                        </select>
                         @error('partylist')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
@@ -76,12 +79,13 @@
                     <div class="sm:col-span-2">
                         <label for="gender"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                            <select id="gender" wire:model="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Select option</option>
-                                @foreach (\App\Models\User::GENDER as $key => $gender)
-                                    <option value="{{ $key }}">{{ $gender }}</option>
-                                @endforeach
-                            </select>
+                        <select id="gender" wire:model="gender"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="">Select option</option>
+                            @foreach (\App\Models\User::GENDER as $key => $gender)
+                                <option value="{{ $key }}">{{ $gender }}</option>
+                            @endforeach
+                        </select>
                         @error('gender')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
@@ -89,7 +93,7 @@
                     <div class="sm:col-span-2">
                         <label for="birthday"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Birthday</label>
-                            <input type="date" id="birthday" wire:model="birthday"
+                        <input type="date" id="birthday" wire:model="birthday"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         @error('birthday')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
@@ -97,42 +101,73 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label for="is_admin"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                            <select id="is_admin" wire:model="is_admin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option value="">Select option</option>
-                                @foreach (\App\Models\User::ROLE as $key => $gender)
-                                    <option value="{{ $key }}">{{ $gender }}</option>
-                                @endforeach
-                            </select>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role*</label>
+                        <select id="is_admin" wire:model="is_admin"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="">Select option</option>
+                            @foreach (\App\Models\User::ROLE as $key => $gender)
+                                <option value="{{ $key }}">{{ $gender }}</option>
+                            @endforeach
+                        </select>
                         @error('is_admin')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                        <textarea id="address" wire:model="address" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                        <label for="address"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <textarea id="address" wire:model="address" rows="4"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                         @error('address')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="organizational_affiliation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Organization affiliation</label>
-                        <textarea id="organizational_affiliation" wire:model="organizational_affiliation" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                        <label for="organizational_affiliation"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Organization
+                            affiliation</label>
+                        <textarea id="organizational_affiliation" wire:model="organizational_affiliation" rows="4"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                         @error('organizational_affiliation')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="notable_achievements" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notable achievements</label>
-                        <textarea id="notable_achievements" wire:model="notable_achievements" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                        <label for="notable_achievements"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notable
+                            achievements</label>
+                        <textarea id="notable_achievements" wire:model="notable_achievements" rows="4"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                         @error('notable_achievements')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="platform" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platform</label>
-                        <textarea id="platform" wire:model="platform" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                        <label for="platform"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Platform</label>
+                        <textarea id="platform" wire:model="platform" rows="4"
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                         @error('platform')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="sm:col-span-2">
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            for="photo">Upload photo</label>
+                        <input wire:model="photo"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="photo" type="file">
+                        @error('platform')
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password*</label>
+                        <input type="password" id="password" wire:model="password"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @error('password')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
