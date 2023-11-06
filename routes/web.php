@@ -1,12 +1,12 @@
 <?php
 
 use App\Livewire\Faq;
-// use App\Livewire\CompleteProfile;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
 use App\Livewire\Dashboard;
 use App\Livewire\PastElection;
 use App\Livewire\ElectionResult;
+use App\Livewire\CompleteProfile;
 use App\Livewire\ThankYouMessage;
 use App\Livewire\UpcomingElection;
 use App\Livewire\FaqResource\EditFaq;
@@ -107,13 +107,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
 });
 
-Route::get('/', HomePage::class)->name('home');
+Route::get('/', HomePage::class)->middleware('profileCompleted')->name('home');
 Route::get('/upcoming-elections', UpcomingElection::class)->name('upcoming.election');
 Route::get('/past-elections', PastElection::class)->name('past.election');
 
 Route::get('/faq', Faq::class);
 
-// Route::get('/complete-profile', CompleteProfile::class)->middleware('auth')->name('complete.profile');
+Route::get('/complete-profile', CompleteProfile::class)->middleware('auth')->name('complete.profile');
 
 Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(function () {
     Route::get('/{election}', Voting::class)->name('start.voting');

@@ -21,8 +21,7 @@ class EnsureProfileIsCompleted
             $user = Auth::user();
 
             if ($user->course_id === null
-            || $user->section_id === null
-            || $user->gender === null) {
+            || $user->section_id === null) {
                 return redirect()->route('complete.profile');
             }
         }
