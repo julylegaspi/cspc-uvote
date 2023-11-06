@@ -12,7 +12,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h1 class="text-4xl font-bold">Thank You !</h1>
+                <h1 class="text-4xl font-bold">Thank You!</h1>
                 <p>Thank you for casting your vote. Check your email for a confirmation.</p>
                 <a href="{{ route('election.result', $election) }}"
                     class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
