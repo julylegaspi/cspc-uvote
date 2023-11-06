@@ -164,7 +164,7 @@
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="sm:col-span-2">
+                    {{-- <div class="sm:col-span-2">
                         <label for="password"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password*</label>
                         <input type="password" id="password" wire:model="password"
@@ -172,7 +172,7 @@
                         @error('password')
                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <button type="button" wire:click="update"

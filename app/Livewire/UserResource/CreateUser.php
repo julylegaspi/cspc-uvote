@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Models\Partylist;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUser extends Component
 {
@@ -29,7 +30,7 @@ class CreateUser extends Component
     public $organizational_affiliation;
     public $notable_achievements;
     public $platform;
-    public $password;
+    // public $password;
 
     protected function rules()
     {
@@ -39,7 +40,7 @@ class CreateUser extends Component
             'course' => 'required|integer',
             'section' => 'required|integer',
             'is_admin' => 'required|boolean',
-            'password' => 'required',
+            // 'password' => 'required',
             'photo' => 'nullable|image|max:1024'
         ];
     }
@@ -74,7 +75,7 @@ class CreateUser extends Component
             'organizational_affiliation' => $this->organizational_affiliation,
             'notable_achievements' => $this->notable_achievements,
             'platform' => $this->platform,
-            'password' => $this->password,
+            'password' => Hash::make('password'),
         ]);
 
         session()->flash('success', 'User created.');

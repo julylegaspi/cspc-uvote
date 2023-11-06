@@ -32,7 +32,6 @@ class EditUser extends Component
     public $organizational_affiliation;
     public $notable_achievements;
     public $platform;
-    public $password;
 
     public function mount(User $user)
     {
@@ -62,9 +61,7 @@ class EditUser extends Component
             'course' => 'required|integer',
             'section' => 'required|integer',
             'is_admin' => 'required|boolean',
-            'password' => 'required',
             'photo' => 'nullable|image|max:1024',
-            'password' => 'nullable'
         ];
     }
 
@@ -97,10 +94,10 @@ class EditUser extends Component
         $this->user->organizational_affiliation = $this->organizational_affiliation;
         $this->user->notable_achievements = $this->notable_achievements;
         $this->user->platform = $this->platform;
-        if ($this->password)
-        {
-            $this->user->password = Hash::make($this->password);
-        }
+        // if ($this->password)
+        // {
+        //     $this->user->password = Hash::make($this->password);
+        // }
         $this->user->save();
 
         session()->flash('success', 'User updated.');
