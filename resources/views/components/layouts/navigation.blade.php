@@ -18,8 +18,7 @@
                     </svg>
                 </button>
                 <a href="{{ route('dashboard') }}" class="flex ml-2 md:mr-24">
-                    <img src="{{ asset('logo/logo.png') }}" class="h-11 mr-3"
-                        alt="Logo" />
+                    <img src="{{ asset('logo/logo.png') }}" class="h-11 mr-3" alt="Logo" />
                     <span
                         class="self-center text-white text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ config('app.name') }}</span>
                 </a>
@@ -70,6 +69,16 @@
                             </p>
                         </div>
                         <ul class="py-1" role="none">
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">Activity logs</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    role="menuitem">School Profile</a>
+                            </li>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <li>
