@@ -3,28 +3,37 @@
 namespace App\Livewire\OrganizationResource;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use App\Models\Organization;
-use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 
 class CreateOrganization extends Component
 {
     use WithFileUploads;
     
-    #[Rule('required|string')]
     public $code;
-
-    #[Rule('required|string')]
     public $name;
-
-    #[Rule('image|max:1024')]
     public $photo;
+
+    protected function rules()
+    {
+        return [
+            'code' => 'required|string',
+            'name' => 'required|string',
+            'photo' => 'nullable|image|max:1024'
+        ];
+    }
 
     public function save()
     {
         $this->validate();
 
-        $photo =  $this->photo->store('organization-photo');
+        $photo = null;
+        if ($this->photo)
+        {
+            $imageName = Str::random() . '.' . $this->photo->getClientOriginalExtension();
+            $photo =  $this->photo->storeAs('organization-photo', $imageName);
+        }
 
         Organization::create([
             'code' => $this->code,
