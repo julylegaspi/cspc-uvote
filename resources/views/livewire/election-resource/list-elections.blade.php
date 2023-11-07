@@ -53,7 +53,7 @@
 
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ \Carbon\Carbon::parse($election->start)->format('F j, Y @ H:i A') }}</td>
+                                        {{ \Carbon\Carbon::parse($election->end)->format('F j, Y @ H:i A') }}</td>
 
                                     <td class="p-4 space-x-2 whitespace-nowrap">
                                         <a href="{{ route('elections.edit', $election) }}" id="editElection"
