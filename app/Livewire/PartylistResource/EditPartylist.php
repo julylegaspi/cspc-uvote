@@ -4,6 +4,7 @@ namespace App\Livewire\PartylistResource;
 
 use Livewire\Component;
 use App\Models\Partylist;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 
@@ -13,20 +14,17 @@ class EditPartylist extends Component
 
     public Partylist $partylist;
     
-    #[Rule('required|string')]
     public $code;
-
-    #[Rule('required|string')]
     public $name;
-
-    #[Rule('image|max:1024')]
     public $photo;
 
-    public $removedLogo = 'no';
-
-    public function removeLogo()
+    protected function rules()
     {
-        $this->removedLogo = 'yes';
+        return [
+            'code' => 'required|string',
+            'name' => 'required|string',
+            'photo' => 'nullable|image|max:1024'
+        ];
     }
 
     public function mount(Partylist $partylist)
@@ -38,24 +36,22 @@ class EditPartylist extends Component
 
     public function update()
     {
-        
+        $this->validate();
+
         $this->partylist->code = $this->code;
         $this->partylist->name = $this->name;
 
-        if ($this->removedLogo == 'yes')
-        {
-            if ($this->photo == null)
-            {
-                $this->addError('photo', 'The photo is required.');
-                return false;
-            }
-            $photo = $this->photo->store('partylist-photo');
-            $this->partylist->photo = $photo;
-        }
+       $photo = $this->partylist->photo;
 
+        if($this->photo)
+        {
+            $imageName = Str::random() . '.' . $this->photo->getClientOriginalExtension();
+            $photo = $this->photo->storeAs('partylist-photo', $imageName);
+        }
+        $this->partylist->photo = $photo;
         $this->partylist->save();
 
-        session()->flash('success', 'Organizaiton updated.');
+        session()->flash('success', 'Partylist updated.');
 
         $this->redirect(ListPartylists::class);
     }
