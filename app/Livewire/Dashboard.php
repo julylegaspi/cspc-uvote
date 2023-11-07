@@ -28,6 +28,7 @@ class Dashboard extends Component
 
     public function render()
     {
+        activity()->log("viewed Dashboard.");
         return view('livewire.dashboard');
     }
 }

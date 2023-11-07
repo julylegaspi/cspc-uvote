@@ -26,6 +26,7 @@ class EditDepartment extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("update Department {$this->name}.");
 
         $this->department->code = $this->code;
         $this->department->name = $this->name;
@@ -38,6 +39,7 @@ class EditDepartment extends Component
     
     public function render()
     {
+        activity()->log("edit Department {$this->name}.");
         return view('livewire.department-resource.edit-department');
     }
 }

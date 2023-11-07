@@ -37,6 +37,7 @@ class CreateElection extends Component
     public function save()
     {
         $data = $this->validate();
+        activity()->log("created Election.");
 
         $election = Election::create([
             'organization_id' => $data['organization'],

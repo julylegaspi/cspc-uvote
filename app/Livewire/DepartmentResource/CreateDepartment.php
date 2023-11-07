@@ -17,6 +17,7 @@ class CreateDepartment extends Component
     public function save()
     {
         $this->validate();
+        activity()->log("created Department {$this->name}.");
 
         Department::create([
             'code' => $this->code,

@@ -72,6 +72,7 @@ class EditElection extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("update Election {$this->election->organization->name}");
 
         $this->election->organization_id = $this->organization;
         $this->election->start = $this->start_date;

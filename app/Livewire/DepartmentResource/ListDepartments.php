@@ -19,6 +19,7 @@ class ListDepartments extends Component
 
     public function destroy(Department $department)
     {
+        activity()->log("deleted Department {$department->name}.");
         $department->delete();
 
         session()->flash('success', 'Department deleted.');
@@ -28,6 +29,7 @@ class ListDepartments extends Component
     
     public function render()
     {
+        activity()->log("viewed Departments.");
         $departments = Department::where('code', 'like', '%'.$this->query.'%')
                 ->orWhere('name', 'like', '%'.$this->query.'%')
                 ->paginate(10);

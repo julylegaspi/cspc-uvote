@@ -20,6 +20,7 @@ class ListElections extends Component
 
     public function destroy(Election $election)
     {
+        activity()->log("delete Election {$election->id}");
         $election->delete();
 
         session()->flash('success', 'Election deleted.');
@@ -29,6 +30,7 @@ class ListElections extends Component
 
     public function render()
     {
+        activity()->log('viewed Elections.');
         $elections = Election::with('organization')
                 ->where('organization_id', 'like', '%'.$this->query.'%')
                 ->orWhere('start', 'like', '%'.$this->query.'%')

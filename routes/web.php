@@ -24,6 +24,7 @@ use App\Http\Controllers\StoreVoteController;
 use App\Livewire\CourseResource\CreateCourse;
 use App\Livewire\SectionResource\EditSection;
 use App\Http\Controllers\GoogleAuthController;
+use App\Livewire\ActivityLog;
 use App\Livewire\SectionResource\ListSections;
 use App\Livewire\ElectionResource\EditElection;
 use App\Livewire\PositionResource\EditPosition;
@@ -103,6 +104,10 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/', ListFaqs::class)->name('faqs.index');
         Route::get('/create', CreateFaq::class)->name('faqs.create');
         Route::get('/{faq}/edit', EditFaq::class)->name('faqs.edit')->lazy();
+    });
+
+    Route::prefix('logs')->group(function () {
+        Route::get('/', ActivityLog::class)->name('activity.log.index')->lazy();
     });
 
 });
