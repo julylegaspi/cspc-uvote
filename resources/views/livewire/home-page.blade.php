@@ -105,10 +105,16 @@
                 </div>
             </div>
         @empty
-            No present elections
+            <section class="container mx-auto bg-white dark:bg-gray-900">
+                <div class="flex justify-center mx-auto max-w-screen-md">
+                    <img src="{{ asset('logo/empty.svg') }}" class="w-64 h-64" alt="Empty">
+                </div>
+                <div class="text-center mt-4">No present elections</div>
+                <div wire:loading class="text-center">
+                    Loading ...
+                </div>
+            </section>
         @endforelse
-        <div wire:loading>
-            Loading ...
-        </div>
+
     </section>
 </div>
