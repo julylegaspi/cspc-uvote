@@ -42,6 +42,7 @@ use App\Livewire\DepartmentResource\CreateDepartment;
 use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
+use App\Livewire\TermsAndCondition;
 
 Route::middleware('guest')->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -128,6 +129,8 @@ Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(funct
 });
 
 Route::post('/logout', LogOutController::class)->name('logout');
+
+Route::get('/terms-and-conditions', TermsAndCondition::class)->name('terms.and.conditions.index');
 
 Route::get('/auth/google', [GoogleAuthController::class, 'signin'])->name('google.login');
 Route::get('/callback', [GoogleAuthController::class, 'callback']);
