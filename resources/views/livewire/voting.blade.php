@@ -129,8 +129,8 @@
             <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Address:</p>
             <p class="mb-3">{{ $address }}</p>
 
-            <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Birthday:</p>
-            <p class="mb-3">{{ \Carbon\Carbon::parse($birthday)->format('F j, Y') }}</p>
+            {{-- <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Birthday:</p>
+            <p class="mb-3">{{ \Carbon\Carbon::parse($birthday)->format('F j, Y') }}</p> --}}
 
             <p class="font-bold underline text-lg font-medium text-gray-900 dark:text-white">Course & Section:</p>
             <p class="mb-3">{{ $course }} - {{ $section }}</p>
