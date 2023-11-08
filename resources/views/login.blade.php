@@ -15,7 +15,7 @@
 
     <main>
         <div
-            class="mt-10 flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
+            class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
             <a href="/"
                 class="flex items-center justify-center mb-3 text-2xl font-semibold lg:mb-10 dark:text-white">
                 <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-20" alt="Logo">
