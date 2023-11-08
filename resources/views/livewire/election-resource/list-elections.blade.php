@@ -64,7 +64,7 @@
                                                   <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
                                                 </g>
                                             </svg>
-                                            View result
+                                            View results
                                         </a>
                                         <a href="{{ route('elections.edit', $election) }}" id="editElection"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
