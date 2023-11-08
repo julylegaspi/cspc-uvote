@@ -27,6 +27,7 @@ class CreateOrganization extends Component
     public function save()
     {
         $this->validate();
+        activity()->log("created Organization {$this->name}.");
 
         $photo = null;
         if ($this->photo)

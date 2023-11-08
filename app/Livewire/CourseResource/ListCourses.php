@@ -19,6 +19,7 @@ class ListCourses extends Component
 
     public function destroy(Course $course)
     {
+        activity()->log("deleted Course.");
         $course->delete();
 
         session()->flash('success', 'Course deleted.');
@@ -28,6 +29,7 @@ class ListCourses extends Component
     
     public function render()
     {
+        activity()->log("viewed Courses.");
         $courses = Course::where('code', 'like', '%'.$this->query.'%')
                 ->orWhere('name', 'like', '%'.$this->query.'%')
                 ->with('department')

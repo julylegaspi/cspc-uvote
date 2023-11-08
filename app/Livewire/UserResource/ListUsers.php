@@ -21,6 +21,7 @@ class ListUsers extends Component
 
     public function destroy(User $user)
     {
+        activity()->log("deleted User {$user->name}.");
         $user->delete();
 
         session()->flash('success', 'User deleted.');
@@ -30,6 +31,7 @@ class ListUsers extends Component
     
     public function render()
     {
+        activity()->log("viewed Users.");
         $users = User::where('name', 'like', '%'.$this->query.'%')
                 ->orWhere('email', 'like', '%'.$this->query.'%')
                 ->with('course', 'section')

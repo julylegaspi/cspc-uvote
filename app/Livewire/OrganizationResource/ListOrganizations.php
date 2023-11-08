@@ -19,6 +19,7 @@ class ListOrganizations extends Component
 
     public function destroy(Organization $organization)
     {
+        activity()->log("deleted Organization {$organization->name}.");
         $organization->delete();
 
         session()->flash('success', 'Organization deleted.');
@@ -28,6 +29,7 @@ class ListOrganizations extends Component
     
     public function render()
     {
+        activity()->log("viewed Organizations.");
         $organizations = Organization::where('code', 'like', '%'.$this->query.'%')
                 ->orWhere('name', 'like', '%'.$this->query.'%')
                 ->paginate(10);

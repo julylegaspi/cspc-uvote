@@ -14,6 +14,7 @@ class CreatePosition extends Component
     public function save()
     {
         $this->validate();
+        activity()->log("created Position {$this->name}.");
 
         Position::create([
             'name' => $this->name

@@ -36,6 +36,7 @@ class EditOrganization extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("updated Organization.");
         $this->organization->code = $this->code;
         $this->organization->name = $this->name;
 

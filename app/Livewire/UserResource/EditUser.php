@@ -72,6 +72,7 @@ class EditUser extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("updated User.");
 
         $photo = $this->user->photo;
         if ($this->photo)

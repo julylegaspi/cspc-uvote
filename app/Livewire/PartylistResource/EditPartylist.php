@@ -37,6 +37,7 @@ class EditPartylist extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("updated Partylist.");
 
         $this->partylist->code = $this->code;
         $this->partylist->name = $this->name;

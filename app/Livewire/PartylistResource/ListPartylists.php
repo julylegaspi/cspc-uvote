@@ -19,6 +19,7 @@ class ListPartylists extends Component
 
     public function destroy(Partylist $partylist)
     {
+        activity()->log("deleted Partylist {$partylist->name}.");
         $partylist->delete();
 
         session()->flash('success', 'Partylist deleted.');
@@ -28,6 +29,7 @@ class ListPartylists extends Component
     
     public function render()
     {
+        activity()->log("viewed Partylists.");
         $partylists = Partylist::where('code', 'like', '%'.$this->query.'%')
                 ->orWhere('name', 'like', '%'.$this->query.'%')
                 ->paginate(10);

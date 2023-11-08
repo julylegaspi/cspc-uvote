@@ -23,6 +23,7 @@ class EditPosition extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("updated Position.");
 
         $this->position->name = $this->name;
         $this->position->save();

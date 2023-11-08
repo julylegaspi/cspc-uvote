@@ -52,6 +52,7 @@ class CreateUser extends Component
     public function save()
     {
         $this->validate();
+        activity()->log("created User {$this->name}.");
 
         $photo = null;
         if ($this->photo)

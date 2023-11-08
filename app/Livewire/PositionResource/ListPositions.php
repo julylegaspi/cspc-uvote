@@ -19,6 +19,7 @@ class ListPositions extends Component
 
     public function destroy(Position $position)
     {
+        activity()->log("deleted Position {$position->name}.");
         $position->delete();
 
         session()->flash('success', 'Position deleted.');
@@ -28,6 +29,7 @@ class ListPositions extends Component
     
     public function render()
     {
+        activity()->log("viewed Position.");
         $positions = Position::where('name', 'like', '%'.$this->query.'%')
                 ->paginate(10);
         return view('livewire.position-resource.list-positions', [

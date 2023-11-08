@@ -35,6 +35,7 @@ class EditCourse extends Component
     public function update()
     {
         $this->validate();
+        activity()->log("updated Course.");
 
         $this->course->department_id = $this->department;
         $this->course->code = $this->code;

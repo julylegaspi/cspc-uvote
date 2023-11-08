@@ -24,6 +24,7 @@ class CreateCourse extends Component
     public function save()
     {
         $this->validate();
+        activity()->log("created Course {$this->name}.");
 
         Course::create([
             'department_id' => $this->department,
@@ -39,6 +40,7 @@ class CreateCourse extends Component
 
     public function render()
     {
+        activity()->log("viewd Courses.");
         $departments = Department::orderBy('name', 'asc')->get();
         return view('livewire.course-resource.create-course', [
             'departments' => $departments
