@@ -35,6 +35,7 @@ class ListElections extends Component
                 ->where('organization_id', 'like', '%'.$this->query.'%')
                 ->orWhere('start', 'like', '%'.$this->query.'%')
                 ->orWhere('end', 'like', '%'.$this->query.'%')
+                ->orderBy('start', 'desc')
                 ->paginate(10);
 
         return view('livewire.election-resource.list-elections', [
