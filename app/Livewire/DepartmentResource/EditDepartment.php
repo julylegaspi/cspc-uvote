@@ -5,9 +5,12 @@ namespace App\Livewire\DepartmentResource;
 use Livewire\Component;
 use App\Models\Department;
 use Livewire\Attributes\Rule;
+use Livewire\WithPagination;
 
 class EditDepartment extends Component
 {
+    use WithPagination;
+    
     public Department $department;
 
     #[Rule('required|string')]
@@ -36,10 +39,18 @@ class EditDepartment extends Component
 
         $this->redirect(ListDepartments::class);
     }
+
+    public function getDepartmentCourses()
+    {
+        return $this->department->courses()->paginate(10);
+    }
     
     public function render()
     {
         activity()->log("edit Department {$this->name}.");
-        return view('livewire.department-resource.edit-department');
+
+        return view('livewire.department-resource.edit-department', [
+            'courses' => $this->getDepartmentCourses()
+        ]);
     }
 }

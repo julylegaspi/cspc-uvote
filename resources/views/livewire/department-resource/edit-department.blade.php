@@ -28,9 +28,57 @@
                 </div>
 
                 <button type="button" wire:click="update"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    class="mb-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Update
                 </button>
+
+                <div class="flex flex-col mb-4 ">
+                    <div class="overflow-x-auto">
+                        <p class="mb-4 text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white">Courses</p>
+                        <div class="inline-block min-w-full align-middle">
+                            <div class="overflow-hidden shadow">
+                                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                                        <tr>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                                Code
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                                Name
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                        @forelse ($courses as $course)
+                                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <td
+                                                    class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                    <div class="text-base font-semibold text-gray-900 dark:text-white">
+                                                        {{ $course->code }}</div>
+                                                </td>
+                                                <td
+                                                    class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{ $course->name }}</td>
+                                            </tr>
+            
+                                        @empty
+                                            <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
+                                                colspan="3">
+                                                <div class="text-base font-semibold text-gray-900 dark:text-white">No results
+                                                </div>
+                                            </td>
+                                        @endforelse
+            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                {{ $courses->links() }}
             </div>
 
         </div>
