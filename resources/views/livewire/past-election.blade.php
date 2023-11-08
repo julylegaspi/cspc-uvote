@@ -8,7 +8,7 @@
     <section class="container mx-auto p-4 max-w-screen-xl">
 
         @forelse ($past_elections as $election)
-            <div class="p-6 bg-white border  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="mb-3 p-6 bg-white border  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex items-center space-x-4">
                     @if (is_null($election->organization->photo))
                         <img class="w-20 h-20 rounded-full ring-2 ring-gray-300"
