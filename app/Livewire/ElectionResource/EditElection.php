@@ -61,12 +61,13 @@ class EditElection extends Component
         'end_date' => 'required|date|after_or_equal:start_date',
         'partylist' => 'required',
         'candidates.*.candidates.*.position' => 'required',
-        'candidates.*.candidates.*.user' => 'required'
+        'candidates.*.candidates.*.user' => 'required|distinct'
     ];
 
     protected $messages = [
         'candidates.*.candidates.*.position' => 'Please select position.',
-        'candidates.*.candidates.*.user' => 'Please select candidate.'
+        'candidates.*.candidates.*.user.required' => 'Please select a candidate.',
+        'candidates.*.candidates.*.user.distinct' => 'The candidate user field has a duplicate value',
     ];
 
     public function update()
