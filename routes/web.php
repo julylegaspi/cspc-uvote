@@ -47,6 +47,9 @@ use App\Livewire\TermsAndCondition;
 Route::middleware(['guest'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
+
+    Route::get('/auth/google', [GoogleAuthController::class, 'signin'])->name('google.login');
+    Route::get('/callback', [GoogleAuthController::class, 'callback']);
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
@@ -131,6 +134,3 @@ Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(funct
 Route::post('/logout', LogOutController::class)->name('logout');
 
 Route::get('/terms-and-conditions', TermsAndCondition::class)->name('terms.and.conditions.index');
-
-Route::get('/auth/google', [GoogleAuthController::class, 'signin'])->name('google.login');
-Route::get('/callback', [GoogleAuthController::class, 'callback']);
