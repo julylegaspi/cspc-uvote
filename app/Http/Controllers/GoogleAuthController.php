@@ -36,7 +36,7 @@ class GoogleAuthController extends Controller
      
                 if ($user->isAdmin())
                 {
-                    return redirect('/admin');
+                    return redirect('/dashboard');
                 }
 
                 return redirect('/');

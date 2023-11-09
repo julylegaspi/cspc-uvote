@@ -44,7 +44,7 @@ use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
 use App\Livewire\TermsAndCondition;
 
-Route::middleware('guest')->group(function() {
+Route::middleware(['guest'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('authenticate');
 });
