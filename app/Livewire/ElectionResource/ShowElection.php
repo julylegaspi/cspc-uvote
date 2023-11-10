@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\ElectionResource;
 
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Election;
 use App\Services\ElectionService;
-use Livewire\Attributes\Layout;
 
-class ElectionResult extends Component
+class ShowElection extends Component
 {
     public Election $election;
 
@@ -52,11 +51,10 @@ class ElectionResult extends Component
         //final
         return (new ElectionService)->getFinalResults($this->election);
     }
-
-    #[Layout('components.layouts.guest.app')]
+    
     public function render()
     {
-        return view('livewire.election-result', [
+        return view('livewire.election-resource.show-election', [
             'votePercentage' => $this->getVotePercentage(),
             'electionHasEnded' => $this->electionHasEnded(),
             'candidates' => $this->getCandidates(),

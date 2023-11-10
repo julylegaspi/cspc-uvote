@@ -9,6 +9,7 @@ use App\Models\Election;
 use App\Models\Position;
 use App\Models\PartyList;
 use App\Models\Organization;
+use App\Services\ElectionService;
 use Illuminate\Support\Facades\Log;
 
 class EditElection extends Component
@@ -25,6 +26,11 @@ class EditElection extends Component
 
     public function mount(Election $election): void
     {
+        if ( (new ElectionService)->electionHasEnded($election) )
+        {
+            abort(403, 'Unable to edit. Election has ended.');
+        }
+
         $this->election = $election;
 
         $this->organization = $election->organization_id;

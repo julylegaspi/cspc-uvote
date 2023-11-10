@@ -56,7 +56,7 @@
                                         {{ \Carbon\Carbon::parse($election->end)->format('F j, Y @ H:i A') }}</td>
 
                                     <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <a href="{{ route('election.result', $election) }}" target="_blank" id="showElection"
+                                        <a href="{{ route('elections.show', $election) }}" id="showElection"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                             <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
                                                 <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -66,6 +66,7 @@
                                             </svg>
                                             View results
                                         </a>
+                                        @if($election->end > now()->format('Y-m-d H:i:s'))
                                         <a href="{{ route('elections.edit', $election) }}" id="editElection"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
@@ -89,6 +90,7 @@
                                             </svg>
                                             Delete
                                         </button>
+                                        @endif
                                     </td>
                                 </tr>
 

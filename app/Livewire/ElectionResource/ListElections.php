@@ -2,10 +2,11 @@
 
 namespace App\Livewire\ElectionResource;
 
-use App\Models\Election;
-use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
+use App\Models\Election;
 use Livewire\WithPagination;
+use App\Services\ElectionService;
+use Illuminate\Http\RedirectResponse;
 
 class ListElections extends Component
 {
@@ -20,6 +21,11 @@ class ListElections extends Component
 
     public function destroy(Election $election)
     {
+        if ( (new ElectionService)->electionHasEnded($election) )
+        {
+            abort(403, 'Unable to delete. Election has ended.');
+        }
+        
         activity()->log("delete Election {$election->id}");
         $election->delete();
 

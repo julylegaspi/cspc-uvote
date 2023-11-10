@@ -4,11 +4,13 @@ use App\Livewire\Faq;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
 use App\Livewire\Dashboard;
+use App\Livewire\ActivityLog;
 use App\Livewire\PastElection;
 use App\Livewire\ElectionResult;
 use App\Livewire\CompleteProfile;
 use App\Livewire\ThankYouMessage;
 use App\Livewire\UpcomingElection;
+use App\Livewire\TermsAndCondition;
 use App\Livewire\FaqResource\EditFaq;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\FaqResource\ListFaqs;
@@ -24,7 +26,6 @@ use App\Http\Controllers\StoreVoteController;
 use App\Livewire\CourseResource\CreateCourse;
 use App\Livewire\SectionResource\EditSection;
 use App\Http\Controllers\GoogleAuthController;
-use App\Livewire\ActivityLog;
 use App\Livewire\SectionResource\ListSections;
 use App\Livewire\ElectionResource\EditElection;
 use App\Livewire\PositionResource\EditPosition;
@@ -39,10 +40,10 @@ use App\Livewire\DepartmentResource\EditDepartment;
 use App\Livewire\PartylistResource\CreatePartylist;
 use App\Livewire\DepartmentResource\ListDepartments;
 use App\Livewire\DepartmentResource\CreateDepartment;
+use App\Livewire\ElectionResource\ShowElection;
 use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
-use App\Livewire\TermsAndCondition;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -101,6 +102,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::prefix('elections')->group(function () {
         Route::get('/', ListElections::class)->name('elections.index');
         Route::get('/create', CreateElection::class)->name('elections.create');
+        Route::get('/{election}', ShowElection::class)->name('elections.show');
         Route::get('/{election}/edit', EditElection::class)->name('elections.edit')->lazy();
     });
 
