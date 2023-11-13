@@ -37,8 +37,6 @@ class CreateUser extends Component
         return [
             'name' => 'required|string',
             'email' => 'required|email:filter|unique:users',
-            'course' => 'required|integer',
-            'section' => 'required|integer',
             'is_admin' => 'required|boolean',
             // 'password' => 'required',
             'photo' => 'nullable|image|max:1024'

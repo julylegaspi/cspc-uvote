@@ -180,7 +180,7 @@
                     Update
                 </button>
             </div>
-            {{ var_export($candidates) }}
+            
         </div>
 
     </div>

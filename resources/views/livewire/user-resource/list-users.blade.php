@@ -63,11 +63,11 @@
 
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->course->code }}</td>
+                                        {{ $user->course->code ?? 'N/A' }}</td>
 
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->section->name }}</td>
+                                        {{ $user->section->name ?? 'N/A' }}</td>
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user::ROLE[$user->is_admin] }}</td>
