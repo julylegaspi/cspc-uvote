@@ -30,12 +30,12 @@
 
                                 <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
                                     <div class="bg-blue-600 h-4 rounded-full"
-                                        style="width: {{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() /$total_voter_counts) *100) }}%">
+                                        style="width: {{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() / $total_voter_counts) *100) }}%">
                                     </div>
                                 </div>
                                 <div class="flex justify-between mb-1">
                                     <span
-                                        class="text-sm font-medium text-black dark:text-white">{{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() /$total_voter_counts) *100) }}%</span>
+                                        class="text-sm font-medium text-black dark:text-white">{{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() / $total_voter_counts) *100) }}%</span>
                                 </div>
                             </div>
                         @endforeach

@@ -68,9 +68,9 @@ class ElectionService
         return $candidate_lists;
     }
 
-    public function getSummaryResults()
+    public function getSummaryResults(Election $election)
     {
-
+        return $election->candidates->groupBy('position.name');
     }
 
     public function electionHasEnded(Election $election)

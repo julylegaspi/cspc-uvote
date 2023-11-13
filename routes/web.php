@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DownloadElectionResultController;
 use App\Livewire\Faq;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
@@ -104,6 +105,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/create', CreateElection::class)->name('elections.create');
         Route::get('/{election}', ShowElection::class)->name('elections.show');
         Route::get('/{election}/edit', EditElection::class)->name('elections.edit')->lazy();
+        Route::post('/{election}/download', DownloadElectionResultController::class)->name('download.results');
     });
 
     Route::prefix('faqs')->group(function () {
@@ -133,6 +135,6 @@ Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(funct
     Route::get('/{election}/results', ElectionResult::class)->name('election.result');
 });
 
-Route::post('/logout', LogOutController::class)->name('logout');
+Route::post('/logout', LogOutController::class)->middleware('auth')->name('logout');
 
 Route::get('/terms-and-conditions', TermsAndCondition::class)->name('terms.and.conditions.index');
