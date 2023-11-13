@@ -39,25 +39,13 @@ class ShowElection extends Component
     {
         return (new ElectionService)->electionHasEnded($this->election);
     }
-
-    public function getCandidates()
-    {
-        // partial
-        if (!$this->electionHasEnded())
-        {
-            return (new ElectionService)->getPartialResults($this->election);
-        }
-
-        //final
-        return (new ElectionService)->getResults($this->election);
-    }
     
     public function render()
     {
         return view('livewire.election-resource.show-election', [
             'votePercentage' => $this->getVotePercentage(),
             'electionHasEnded' => $this->electionHasEnded(),
-            'candidates' => $this->getCandidates(),
+            'candidates' => (new ElectionService)->getResults($this->election),
         ]);
     }
 }
