@@ -3,22 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Election;
-use App\Services\ElectionService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\ElectionService;
 
 class DownloadElectionResultController extends Controller
 {
     public function __invoke(Election $election)
     {
-        $results = (new ElectionService)->getSummaryResults($election);
-
-        // $data = [];
-
-        // foreach ($results as $positionName => $candidates) {
-        //     foreach ($candidates as $candidate) {
-                
-        //     }
-        // }
+        $results = (new ElectionService)->getResults($election);
 
         $pdf = Pdf::loadView('pdf', [
             'organization_code' => $election->organization->code,

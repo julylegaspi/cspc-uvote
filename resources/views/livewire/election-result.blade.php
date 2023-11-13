@@ -30,12 +30,12 @@
 
                                 <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
                                     <div class="bg-blue-600 h-4 rounded-full"
-                                        style="width: {{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() / $total_voter_counts) *100) }}%">
+                                        style="width: {{ number_format(($c['count'] / $total_voter_counts) * 100) }}%">
                                     </div>
                                 </div>
                                 <div class="flex justify-between mb-1">
                                     <span
-                                        class="text-sm font-medium text-black dark:text-white">{{ number_format(($election->votes()->where('candidate_id', $c->user_id)->count() / $total_voter_counts) *100) }}%</span>
+                                        class="text-sm font-medium text-black dark:text-white">{{ number_format(($c['count'] / $total_voter_counts) * 100) }}%</span>
                                 </div>
                             </div>
                         @endforeach
@@ -62,30 +62,51 @@
                             <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{ $position }}</h5>
                         </a>
-                        <div class="flex items-center space-x-4">
-                            @if (is_null($candidate['candidate']->photo))
-                                <img class="w-20 h-20 rounded-full ring-2 ring-gray-300"
-                                    src="https://ui-avatars.com/api/?name={{ $candidate['candidate']->name }}"
-                                    alt="name">
+                        @foreach ($candidate as $c)
+                            @if ($loop->first)
+                                <div class="flex items-center space-x-4 mt-4">
+                                    @if (is_null($c['candidate']->photo))
+                                        <img class="w-20 h-20 rounded-full ring-2 ring-gray-300"
+                                            src="https://ui-avatars.com/api/?name={{ $c['candidate']->name }}"
+                                            alt="name">
+                                    @else
+                                        <img class="w-20 h-20 rounded-full ring-2 ring-gray-300"
+                                            src="{{ asset('storage/' . $c['candidate']->photo) }}" alt="name">
+                                    @endif
+                                    <div class="font-medium dark:text-white">
+                                        <div class="text-xl">{{ $c['candidate']->name }}
+                                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ $c['candidate']->partylist->name }}</div>
+                                            <p class="text-base font-bold text-gray-900 dark:text-white">
+                                                {{ $c['count'] }} {{ Str::plural('vote', $c['count']) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             @else
-                                <img class="w-20 h-20 rounded-full ring-2 ring-gray-300"
-                                    src="{{ asset('storage/' . $candidate['candidate']->photo) }}" alt="name">
+                                <div class="flex items-center space-x-4 mt-4 pl-5">
+                                    @if (is_null($c['candidate']->photo))
+                                        <img class="w-10 h-10 rounded-full ring-2 ring-gray-300"
+                                            src="https://ui-avatars.com/api/?name={{ $c['candidate']->name }}"
+                                            alt="name">
+                                    @else
+                                        <img class="w-10 h-10 rounded-full ring-2 ring-gray-300"
+                                            src="{{ asset('storage/' . $c['candidate']->photo) }}" alt="name">
+                                    @endif
+                                    <div class="font-medium dark:text-white">
+                                        <div class="text-lg">{{ $c['candidate']->name }}
+                                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ $c['candidate']->partylist->name }}</div>
+                                            <p class="text-base font-bold text-gray-900 dark:text-white">
+                                                {{ $c['count'] }} {{ Str::plural('vote', $c['count']) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
-                            <div class="font-medium dark:text-white">
-                                <div>{{ $candidate['candidate']->name }}</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $candidate['candidate']->partylist->name }}</div>
-                                <span
-                                    class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                    <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
-                                    {{ $candidate['count'] }} Votes
-                                </span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 @endforeach
             </div>
+        </section>
     @endif
-    </section>
 
 </div>

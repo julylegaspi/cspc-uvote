@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DownloadElectionResultController;
 use App\Livewire\Faq;
 use App\Livewire\Voting;
 use App\Livewire\HomePage;
@@ -29,6 +28,7 @@ use App\Livewire\SectionResource\EditSection;
 use App\Http\Controllers\GoogleAuthController;
 use App\Livewire\SectionResource\ListSections;
 use App\Livewire\ElectionResource\EditElection;
+use App\Livewire\ElectionResource\ShowElection;
 use App\Livewire\PositionResource\EditPosition;
 use App\Livewire\SectionResource\CreateSection;
 use App\Livewire\ElectionResource\ListElections;
@@ -41,10 +41,10 @@ use App\Livewire\DepartmentResource\EditDepartment;
 use App\Livewire\PartylistResource\CreatePartylist;
 use App\Livewire\DepartmentResource\ListDepartments;
 use App\Livewire\DepartmentResource\CreateDepartment;
-use App\Livewire\ElectionResource\ShowElection;
 use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
+use App\Http\Controllers\DownloadElectionResultController;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');

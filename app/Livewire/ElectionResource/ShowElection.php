@@ -49,7 +49,7 @@ class ShowElection extends Component
         }
 
         //final
-        return (new ElectionService)->getFinalResults($this->election);
+        return (new ElectionService)->getResults($this->election);
     }
     
     public function render()

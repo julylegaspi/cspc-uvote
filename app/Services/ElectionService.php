@@ -40,37 +40,25 @@ class ElectionService
         return $election->candidates->groupBy('position.name');
     }
 
-    public function getFinalResults(Election $election)
+    public function getResults(Election $election)
     {
         $candidate_lists = [];
         $candidates = $election->candidates->groupBy('position.name');
 
         foreach ($candidates as $positionName => $candidate) {
-            $candidate_id = 0;
-            $current_count = 0;
             foreach ($candidate as $c) {
                 $count = $election->votes()->where('candidate_id', $c->user_id)->count();
-
-                if ($count > $current_count)
-                {
-                    $candidate_id = $c->user_id;
-                    $current_count = $count;
-                }
-
+                $candidate_lists[$positionName][] = [
+                    'candidate' => User::find($c->user_id),
+                    'count' => $count
+                ];
             }
-
-            $candidate_lists[$positionName] = [
-                'candidate' => User::find($candidate_id),
-                'count' => $current_count
-            ];
+            usort($candidate_lists[$positionName], function($a, $b) {
+                return $b['count'] <=> $a['count'];
+            });
         }
 
         return $candidate_lists;
-    }
-
-    public function getSummaryResults(Election $election)
-    {
-        return $election->candidates->groupBy('position.name');
     }
 
     public function electionHasEnded(Election $election)

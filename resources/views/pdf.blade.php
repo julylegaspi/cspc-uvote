@@ -72,18 +72,32 @@
     @foreach ($results as $positionName => $candidates)
         <div class="row" style="margin-top: 3px;">
             <div class="column" style="width: 100%; text-align:left;">
-                <p><strong> {{ $positionName }} </strong></p>
+                <p style="text-decoration: underline;">{{ $positionName }}</p>
             </div>
         </div>
         @foreach ($candidates as $candidate)
             <div class="row">
 
                 <div class="column" style="width: 90%; text-align:left;">
-                    <p style="line-height: 0px;">{{ $loop->index + 1 }}. {{ \App\Models\User::find($candidate->user_id)->name }}</p>
+                    @if ($loop->first)
+                    <p style="line-height: 0px; font-weight: bold;">
+                        {{ $loop->index + 1 }}. {{ $candidate['candidate']->name }}
+                    </p>
+                    @else
+                    <p style="line-height: 0px;">
+                        {{ $loop->index + 1 }}. {{ $candidate['candidate']->name }}
+                    </p>
+                    @endif
                 </div>
                 <div class="column" style="width: 10%; text-align: center;">
+                    @if($loop->first)
+                    <p style="line-height: 0px; font-weight: bold;">
+                        {{ $candidate['count'] }}</p>
+                    @else
                     <p style="line-height: 0px;">
-                            {{ \App\Models\Vote::where('candidate_id', $candidate->user_id)->count() }}</p>
+                            {{ $candidate['count'] }}</p>
+
+                    @endif
                 </div>
             </div>
         @endforeach
