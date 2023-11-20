@@ -80,6 +80,7 @@ class Voting extends Component
     public function showReview()
     {
         $this->review = 'yes';
+        ksort($this->votes);
     }
 
     public function getCandidates()
