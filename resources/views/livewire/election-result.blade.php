@@ -2,7 +2,7 @@
     @if (!$electionHasEnded)
         <section class="container mx-auto p-4 max-w-screen-xl" wire:poll.10s>
             <h1 class="text-center mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Partial and
-                Unofficial results - {{ $election->organization->name }}</h1>
+                Unofficial results - {{ $election->organization->name }} {{ $election->created_at->format('Y') }}</h1>
             <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 animate-pulse">
                 <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                     style="width: {{ number_format($votePercentage) }}%"> {{ number_format($votePercentage) }}%</div>
@@ -46,7 +46,7 @@
     @else
         <section class="container mx-auto p-4 max-w-screen-xl">
             <h1 class="text-center mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Official
-                Results - {{ $election->organization->name }}</h1>
+                Results - {{ $election->organization->name }} {{ $election->created_at->format('Y') }}</h1>
             <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                 <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
                     style="width: {{ number_format($votePercentage) }}%"> {{ number_format($votePercentage) }}%</div>
