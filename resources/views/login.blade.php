@@ -21,7 +21,7 @@
                     <img src="{{ asset('logo/logo.png') }}" class="mr-4 h-20" alt="Logo">
                 </a>
                 <p class="flex items-center justify-center mb-5 text-xl font-bold text-white">
-                    Camariens Sur Polytechnic Colleges
+                    Camarines Sur Polytechnic Colleges
                 </p>
                 <!-- Card -->
                 <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
