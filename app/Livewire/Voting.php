@@ -6,8 +6,10 @@ use App\Models\User;
 use App\Models\Vote;
 use Livewire\Component;
 use App\Models\Election;
-use App\Models\Position;
+use Illuminate\Support\Str;
+use App\Mail\VoterConfirmation;
 use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Mail;
 
 class Voting extends Component
 {
@@ -22,6 +24,10 @@ class Voting extends Component
     public $organizational_affiliation;
     public $notable_achievements;
     public $platform;
+
+    public $votes = [];
+
+    public $review = 'no';
 
     public $readyToLoad = false;
 
@@ -60,6 +66,22 @@ class Voting extends Component
 
     }
 
+    protected function rules()
+    {
+        return [
+            'votes' => 'required'
+        ];
+    }
+
+    protected $messages = [
+        'votes.required' => 'Please select at least one candidate',
+    ];
+
+    public function showReview()
+    {
+        $this->review = 'yes';
+    }
+
     public function getCandidates()
     {
         return $this->election->candidates->groupBy('position.name');
@@ -96,6 +118,51 @@ class Voting extends Component
         $this->organizational_affiliation = "";
         $this->notable_achievements = "";
         $this->platform = "";
+    }
+
+    public function submit()
+    {
+        $this->validate();
+        
+        $reference_number = Str::random(6) . '-' . Str::random(1) . '-' . Str::random(3);
+
+        foreach ($this->votes as $positionKey => $candidate_id) {
+            Vote::create([
+                'election_id' => $this->election->id,
+                'user_id' => auth()->user()->id,
+                'position_id' => $positionKey,
+                'candidate_id' => $candidate_id,
+                'reference_number' => $reference_number
+            ]);
+        }
+
+        $votes = Vote::where('user_id', auth()->user()->id)
+            ->where('election_id', $this->election->id)
+            ->get();
+
+        //email user
+        $mail_data = [
+            'organization' => $this->election->organization->name,
+            'voter' => auth()->user()->name,
+            'reference_number' => $reference_number,
+            'votes' => []
+        ];
+
+        $mail_data['organization'] = $this->election->organization->name;
+        $mail_data['voter'] = auth()->user()->name;
+        $mail_data['reference_number'] = $reference_number;
+
+        foreach ($votes as $vote) {
+            $mail_data['votes'][] = [
+                'position' => $vote->position->name,
+                'candidate' => $vote->candidate->name,
+                'candidate_partylist' => $vote->candidate->partylist->name
+            ];
+        }
+
+        Mail::to(auth()->user()->email)->send(new VoterConfirmation($mail_data));
+
+        return redirect()->route('thank-you.index', $this->election);
     }
 
     #[Layout('components.layouts.guest.app')]

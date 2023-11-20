@@ -120,11 +120,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
 });
 
-Route::get('/', HomePage::class)->middleware('profileCompleted')->name('home');
-Route::get('/upcoming-elections', UpcomingElection::class)->name('upcoming.election');
-Route::get('/past-elections', PastElection::class)->name('past.election');
-
-Route::get('/faq', Faq::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', HomePage::class)->middleware('profileCompleted')->name('home');
+    Route::get('/upcoming-elections', UpcomingElection::class)->name('upcoming.election');
+    Route::get('/past-elections', PastElection::class)->name('past.election');
+    
+    Route::get('/faq', Faq::class);
+});
 
 Route::get('/complete-profile', CompleteProfile::class)->middleware('auth')->name('complete.profile');
 

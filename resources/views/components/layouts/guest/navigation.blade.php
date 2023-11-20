@@ -50,9 +50,14 @@
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                            <li>
+                            {{-- <li>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Profile</a>
+                            </li> --}}
+                            @if(auth()->user()->isAdmin())
+                            <li>
+                                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Admin Dashboard</a>
                             </li>
+                            @endif
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <button type="submit"
