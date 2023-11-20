@@ -45,6 +45,7 @@ use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
 use App\Http\Controllers\DownloadElectionResultController;
+use App\Livewire\ElectionResource\ExtendElection;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -105,6 +106,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/create', CreateElection::class)->name('elections.create');
         Route::get('/{election}', ShowElection::class)->name('elections.show');
         Route::get('/{election}/edit', EditElection::class)->name('elections.edit')->lazy();
+        Route::get('/{election}/extend', ExtendElection::class)->name('elections.extend');
         Route::post('/{election}/download', DownloadElectionResultController::class)->name('download.results');
     });
 

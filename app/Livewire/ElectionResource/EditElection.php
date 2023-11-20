@@ -10,7 +10,6 @@ use App\Models\Position;
 use App\Models\PartyList;
 use App\Models\Organization;
 use App\Services\ElectionService;
-use Illuminate\Support\Facades\Log;
 
 class EditElection extends Component
 {
