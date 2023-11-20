@@ -4,6 +4,7 @@ namespace App\Livewire\ElectionResource;
 
 use Livewire\Component;
 use App\Models\Election;
+use App\Services\ElectionService;
 
 class ExtendElection extends Component
 {
@@ -14,6 +15,11 @@ class ExtendElection extends Component
 
     public function mount(Election $election)
     {
+        if (! (new ElectionService)->electionHasEnded($election)) 
+        {
+            abort(403, 'Election has not ended yet.');
+        }
+
         $this->election = $election;
         $this->start_date = $election->start;
         $this->end_date = $election->end;
