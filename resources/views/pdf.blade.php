@@ -51,7 +51,7 @@
             <p style="line-height: 0px;">San Miguel, Nabua, Camarines Sur</p>
 
             <h4>{{ $organization_code }} ({{ $organization_name }})</h4>
-            <p style="line-height: 0px;">OFFICIAL ELECTION RESULT {{ $year }}</p>
+            <p style="line-height: 0px;">{{$text}} ELECTION RESULT {{ $year }}</p>
         </div>
         <div class="column" style="width: 20%; text-align:center;">
             <img src="{{ public_path('logo/uvote-logo.png') }}" alt="uVote logo" width="100" height="100">

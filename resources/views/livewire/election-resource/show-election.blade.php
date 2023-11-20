@@ -11,6 +11,22 @@
             <p class="text-center mb-4 text-lg text-gray-600 dark:text-gray-400">{{ $total_users_voted }} out of
                 {{ $total_voter_counts }} people cast their votes.</p>
 
+            <form action="{{ route('download.results', $election) }}" method="post" target="_blank">
+                @csrf
+                <button type="submit"
+                    class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
+                    <svg class="w-4 h-4 text-white mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    Download and print unofficial results
+                </button>
+            </form>
+
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-6">
                 @foreach ($candidates as $position => $candidate)
                     <div
@@ -51,7 +67,7 @@
             <p class="text-center mb-4 text-lg text-gray-600 dark:text-gray-400">{{ $total_users_voted }} out of
                 {{ $total_voter_counts }} people cast their votes.</p>
 
-            <form action="{{ route('download.results', $election) }}" method="post">
+            <form action="{{ route('download.results', $election) }}" method="post" target="_blank">
                 @csrf
                 <button type="submit"
                     class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -184,11 +200,5 @@
                 </section>
             </div>
         </div>
-
-
-
-
-
     @endif
-
 </div>

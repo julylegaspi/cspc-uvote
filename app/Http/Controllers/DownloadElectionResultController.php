@@ -12,11 +12,21 @@ class DownloadElectionResultController extends Controller
     {
         $results = (new ElectionService)->getResults($election);
 
+        $electionHasEnded = (new ElectionService)->electionHasEnded($election);
+
+        if (!$electionHasEnded)
+        {
+            $text = 'UNOFFICIAL';
+        } else {
+            $text = 'OFFICIAL';
+        }
+
         $pdf = Pdf::loadView('pdf', [
             'organization_code' => $election->organization->code,
             'organization_name' => $election->organization->name,
             'year' => $election->created_at->format('Y'),
-            'results' => $results
+            'results' => $results,
+            'text' => $text,
         ]);
 
         return $pdf->stream($election->id . '.pdf');
