@@ -3,9 +3,9 @@
         <div class="flex items-center mb-4 sm:mb-0">
             <label for="course-search" class="sr-only">Search</label>
             <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
-                <input type="hidden"
+                <input type="text"
                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Search course" wire:model.live.debounce.150ms="query" wire:keydown='search'>
+                    placeholder="Search course" wire:model.live.debounce.150ms="query" wire:keydown='search' wire:keyup="resetFilterByDepartment">
             </div>
         </div>
         <button type="button" data-modal-target="create-modal" data-modal-toggle="create-modal"
@@ -21,7 +21,7 @@
                     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                         <label for="department"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter courses by department</label>
-                        <select id="department" wire:model.live="query" wire:change.live="search"
+                        <select id="department" wire:model.live="filter_by_department" wire:change.live="search"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="">Show all</option>
                             @foreach ($departments as $department)

@@ -40,6 +40,11 @@ class ListCourses extends Component
         $this->query = $this->filter_by_department;
     }
 
+    public function resetFilterByDepartment()
+    {
+        $this->filter_by_department = "";
+    }
+
     public function store()
     {
         $this->validate();
@@ -104,9 +109,20 @@ class ListCourses extends Component
     {
         activity()->log("viewed Courses.");
 
-        $courses = Course::where('name', 'like', '%'.$this->query.'%')
-                ->orWhere('department_id', 'like', '%'.$this->query.'%')
+        if (!empty($this->query))
+        {
+            $courses = Course::where('name', 'like', '%'.$this->query.'%')
+                ->orWhere('code', 'like', '%'.$this->query.'%')
                 ->paginate(10);
+        } elseif(!empty($this->filter_by_department))
+        {
+            $courses = Course::where('department_id', $this->filter_by_department)
+                    ->paginate(10);
+        } else 
+        {
+            $courses = Course::orderBy('name', 'asc')
+                    ->paginate(10);
+        }
 
         $departments = Department::orderBy('name', 'asc')->get();
         return view('livewire.course-resource.list-courses', [
