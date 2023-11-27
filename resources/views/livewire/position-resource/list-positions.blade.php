@@ -11,9 +11,9 @@
         <button type="button" data-modal-target="create-modal" data-modal-toggle="create-modal"
             class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
             Add new position
-    </button>
+        </button>
     </div>
-    
+
     <div class="flex flex-col mb-4 ">
         <div class="overflow-x-auto">
             <div class="inline-block min-w-full align-middle">
@@ -53,7 +53,9 @@
                                             </svg>
                                             Edit
                                         </button>
-                                        <button type="submit" id="deletePosition" wire:click="destroy('{{$position->id}}')" onclick="return confirm('You are about to delete position. Continue?') || event.stopImmediatePropagation()"
+                                        <button type="submit" id="deletePosition"
+                                            wire:click="destroy('{{ $position->id }}')"
+                                            onclick="return confirm('You are about to delete position. Continue?') || event.stopImmediatePropagation()"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -83,8 +85,8 @@
 
     {{ $positions->links() }}
 
-        <!-- Create Position -->
-        <div id="create-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore.self
+    <!-- Create Position -->
+    <div id="create-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore.self
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
