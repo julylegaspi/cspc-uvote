@@ -30,9 +30,14 @@ class ListSections extends Component
 
     public function getSections()
     {
-        $course = Course::find($this->course);
-
-        $this->year_count = $course->year_count;
+        if(!empty($this->course))
+        {
+            $course = Course::find($this->course);
+    
+            $this->year_count = $course->year_count;
+        } else {
+            $this->year_count = '';
+        }
     }
 
     public function search()
@@ -97,10 +102,20 @@ class ListSections extends Component
     
     public function render()
     {
-        $sections = Section::where('level', 'like', '%'.$this->query.'%')
-                ->orWhere('name', 'like', '%'.$this->query.'%')
-                ->with('course')
-                ->paginate(10);
+        if (!empty($this->query))
+        {
+            $sections = Section::where('name', 'like', '%'.$this->query.'%')->get();
+        } elseif (!empty($this->course)) {
+            if ($this->level == '')
+            {
+                $this->level = 1;
+            }
+            $sections = Section::where('course_id', $this->course)
+                        ->where('level', $this->level)
+                        ->get();
+        } else {
+            $sections = Section::where('name', 'like', '%'.$this->query.'%')->get();
+        }
 
         $departments = Department::with('courses')->get();
         $courses = Course::orderBy('name', 'asc')->get();

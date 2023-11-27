@@ -77,7 +77,7 @@
                                     </td>
 
                                     <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <button type="button" wire:click="edit({{ $section->id }})"
+                                        <button type="button" wire:click="edit('{{ $section->id }}')"
                                             data-modal-target="edit-modal" data-modal-toggle="edit-modal"
                                             id="editSection"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    {{ $sections->links() }}
+    {{-- {{ $sections->links() }} --}}
 
     <!-- Create Section -->
     <div id="create-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore.self
@@ -205,7 +205,7 @@
     </div>
 
     <!-- Edit Section -->
-    <div id="edit-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore
+    <div id="edit-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore.self
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
@@ -251,9 +251,8 @@
                     <div class="mb-6">
                         <label for="level"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year level</label>
-                        <select id="level" wire:model="level"
+                        <select id="level" wire:model.live="level"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="">Select option</option>
                             @for ($i = 1; $i <= $year_count; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
