@@ -3,9 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use App\Models\Course;
 use App\Models\Section;
 use Livewire\Component;
+use App\Models\Department;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +17,8 @@ class CompleteProfile extends Component
 
     #[Rule('required|integer')]
     public $section;
+
+    public $section_lists = [];
 
     public User $user;
 
@@ -30,6 +32,11 @@ class CompleteProfile extends Component
                 abort(404);
             }
         }
+    }
+
+    public function getSections()
+    {
+        $this->section_lists = Section::where('course_id', $this->course)->get();
     }
 
     public function save()
@@ -49,11 +56,9 @@ class CompleteProfile extends Component
     #[Layout('components.layouts.guest.app')]
     public function render()
     {
-        $courses = Course::orderBy('name', 'asc')->get();
-        $sections = Section::orderBy('name', 'asc')->get();
+        $departments = Department::orderBy('name', 'asc')->with('courses')->get();
         return view('livewire.complete-profile', [
-            'courses' => $courses,
-            'sections' => $sections,
+            'departments' => $departments,
         ]);
     }
 }

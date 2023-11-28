@@ -7,7 +7,7 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Models\Election;
 use App\Models\Position;
-use App\Models\PartyList;
+use App\Models\Partylist;
 use App\Models\Organization;
 use App\Services\ElectionService;
 
@@ -111,7 +111,7 @@ class EditElection extends Component
             {
                 $this->candidates[$partylist] = [
                     'partylist_id' => $partylist,
-                    'partylist_name' => PartyList::find($partylist)->name,
+                    'partylist_name' => Partylist::find($partylist)->name,
                     'candidates' => [
                         [
                             'position' => '',
@@ -149,7 +149,7 @@ class EditElection extends Component
     {
         $courses = Course::with('department')->get();
         $organizations = Organization::orderBy('name', 'asc')->get();
-        $partylists = PartyList::orderBy('name', 'asc')->get();
+        $partylists = Partylist::orderBy('name', 'asc')->get();
         $positions = Position::orderBy('id', 'asc')->get();
         $users = User::orderBy('name', 'asc')->get();
 

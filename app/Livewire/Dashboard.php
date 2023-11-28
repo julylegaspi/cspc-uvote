@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use App\Models\Course;
 use Livewire\Component;
-use App\Models\PartyList;
+use App\Models\Partylist;
 use App\Models\Department;
 use App\Models\Organization;
 
@@ -22,7 +22,7 @@ class Dashboard extends Component
         $this->department_count = Department::count();
         $this->course_count = Course::count();
         $this->organization_count = Organization::count();
-        $this->partylist_count = PartyList::count();
+        $this->partylist_count = Partylist::count();
         $this->user_count = User::count();
     }
 

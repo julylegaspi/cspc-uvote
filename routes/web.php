@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\FaqResource\ListFaqs;
 use App\Livewire\FaqResource\CreateFaq;
 use App\Livewire\UserResource\EditUser;
+use Illuminate\Support\Facades\Artisan;
 use App\Livewire\UserResource\ListUsers;
 use App\Http\Controllers\LoginController;
 use App\Livewire\UserResource\CreateUser;
@@ -34,6 +35,7 @@ use App\Livewire\SectionResource\CreateSection;
 use App\Livewire\ElectionResource\ListElections;
 use App\Livewire\PositionResource\ListPositions;
 use App\Livewire\ElectionResource\CreateElection;
+use App\Livewire\ElectionResource\ExtendElection;
 use App\Livewire\PartylistResource\EditPartylist;
 use App\Livewire\PositionResource\CreatePosition;
 use App\Livewire\PartylistResource\ListPartylists;
@@ -45,7 +47,6 @@ use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
 use App\Livewire\OrganizationResource\CreateOrganization;
 use App\Http\Controllers\DownloadElectionResultController;
-use App\Livewire\ElectionResource\ExtendElection;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -142,3 +143,7 @@ Route::prefix('election')->middleware(['auth', 'profileCompleted'])->group(funct
 Route::post('/logout', LogOutController::class)->middleware('auth')->name('logout');
 
 Route::get('/terms-and-conditions', TermsAndCondition::class)->name('terms.and.conditions.index');
+
+Route::get('/optimize', function () {
+    Artisan::call('optimize');
+});

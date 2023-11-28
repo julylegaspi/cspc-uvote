@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\PartyList;
+use App\Models\Partylist;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'section_id' => 1,
             'gender' => $this->faker->randomElement(['m', 'f']),
             'is_active' => true,
-            'partylist_id' => PartyList::all()->random()->id,
+            'partylist_id' => Partylist::all()->random()->id,
             'address' => $this->faker->address(),
             'birthday' => $this->faker->dateTimeBetween('1990-01-01', '2012-12-31'),
             'organizational_affiliation' => $this->faker->paragraph(10),

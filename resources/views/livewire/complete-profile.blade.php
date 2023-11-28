@@ -8,11 +8,16 @@
             <form wire:submit.prevent="save" class="space-y-8">
                 <div>
                     <label for="course" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Course</label>
-                    <select id="course" wire:model="course"
+                    <select id="course" wire:model="course" wire:change="getSections"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Choose a course</option>
-                        @foreach ($courses as $course)
-                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @foreach ($departments as $department)
+                            <optgroup label="{{ $department->name }}">
+                                @foreach ($department->courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->code }} -
+                                        {{ $course->name }}</option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                     @error('course')
@@ -24,8 +29,8 @@
                     <select id="section" wire:model="section"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Choose a section</option>
-                        @foreach ($sections as $section)
-                            <option value="{{ $section->id }}">{{ $section->name }}</option>
+                        @foreach ($section_lists as $section)
+                            <option value="{{ $section->id }}">{{$section->level}} - {{ $section->name }}</option>
                         @endforeach
                     </select>
                     @error('section')
@@ -43,7 +48,7 @@
                     </svg>
                 </button>
 
-                <div wire:loading> 
+                <div wire:loading wire:target="save"> 
                     Saving ...
                 </div>
             </form>

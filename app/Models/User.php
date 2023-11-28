@@ -74,6 +74,6 @@ class User extends Authenticatable
 
     public function partylist()
     {
-        return $this->belongsTo(PartyList::class);
+        return $this->belongsTo(Partylist::class);
     }
 }

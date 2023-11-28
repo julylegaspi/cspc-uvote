@@ -7,7 +7,8 @@ use App\Models\Course;
 use Livewire\Component;
 use App\Models\Election;
 use App\Models\Position;
-use App\Models\PartyList;
+use App\Models\Partylist;
+use App\Models\Department;
 use App\Models\Organization;
 
 class CreateElection extends Component
@@ -16,6 +17,7 @@ class CreateElection extends Component
     public $start_date;
     public $end_date = "";
     public $partylist = [];
+    public $department = [];
     public $course = [];
 
     public $candidates = [];
@@ -35,8 +37,17 @@ class CreateElection extends Component
         'candidates.*.candidates.*.user.distinct' => 'The candidate user field has a duplicate value',
     ];
 
+    public function getCourses()
+    {
+        $courses = Course::whereIn('department_id', $this->department)->pluck('id');
+        foreach ($courses as $course_id) {
+            array_push($this->course, $course_id);
+        }
+    }
+
     public function save()
     {
+        dd($this->course);
         $data = $this->validate();
         activity()->log("created Election.");
 
@@ -71,7 +82,7 @@ class CreateElection extends Component
             {
                 $this->candidates[$partylist] = [
                     'partylist_id' => $partylist,
-                    'partylist_name' => PartyList::find($partylist)->name,
+                    'partylist_name' => Partylist::find($partylist)->name,
                     'candidates' => [
                         [
                             'position' => '',
@@ -107,14 +118,14 @@ class CreateElection extends Component
 
     public function render()
     {
-        $courses = Course::with('department')->get();
+        $departments = Department::orderBy('name', 'asc')->with('courses')->get();
         $organizations = Organization::orderBy('name', 'asc')->get();
-        $partylists = PartyList::orderBy('name', 'asc')->get();
+        $partylists = Partylist::orderBy('name', 'asc')->get();
         $positions = Position::orderBy('id', 'asc')->get();
         $users = User::orderBy('name', 'asc')->get();
         
         return view('livewire.election-resource.create-election', [
-            'courses' => $courses,
+            'departments' => $departments,
             'organizations' => $organizations,
             'partylists' => $partylists,
             'positions' => $positions,
