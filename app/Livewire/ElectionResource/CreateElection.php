@@ -40,6 +40,7 @@ class CreateElection extends Component
     public function getCourses()
     {
         $courses = Course::whereIn('department_id', $this->department)->pluck('id');
+        $this->course = [];
         foreach ($courses as $course_id) {
             array_push($this->course, $course_id);
         }
