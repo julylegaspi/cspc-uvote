@@ -45,8 +45,10 @@ use App\Livewire\DepartmentResource\ListDepartments;
 use App\Livewire\DepartmentResource\CreateDepartment;
 use App\Livewire\OrganizationResource\EditOrganization;
 use App\Livewire\OrganizationResource\ListOrganizations;
+use App\Http\Controllers\DownloadUsersTemplateController;
 use App\Livewire\OrganizationResource\CreateOrganization;
 use App\Http\Controllers\DownloadElectionResultController;
+use App\Http\Controllers\ImportUserController;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -121,6 +123,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/', ActivityLog::class)->name('activity.log.index')->lazy();
     });
 
+    Route::get('/download-users-template', DownloadUsersTemplateController::class)->name('download.users.template');
+    Route::post('/download-users-template', ImportUserController::class)->name('import.users.template');
 });
 
 Route::middleware(['auth'])->group(function () {
