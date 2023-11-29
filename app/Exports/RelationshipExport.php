@@ -50,7 +50,7 @@ class RelationshipExport implements  FromQuery, WithTitle, WithHeadings
             return ["ID", "Level", "Name"];
         }
 
-        return ['Name', 'Email', 'Student_id', 'Course_id', 'Section_id', 'Partylist_id', 'Address', 'Birthday', 'Organizational_affiliation', 'Notable_achievements', 'Platform'];
+        return ['Name', 'Email', 'Student_id', 'Course_id', 'Section_id', 'Partylist_id', 'Address', 'Organizational_affiliation', 'Notable_achievements', 'Platform'];
     }
 
     /**

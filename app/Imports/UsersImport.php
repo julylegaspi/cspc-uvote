@@ -34,7 +34,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithMultipleSheets
             'is_admin' => false,
             'partylist_id' => $row['partylist_id'],
             'address' => $row['address'],
-            'birthday' => $row['birthday'],
+            // 'birthday' => $row['birthday'],
             'organizational_affiliation' => $row['organizational_affiliation'],
             'notable_achievements' => $row['notable_achievements'],
             'platform' => $row['platform']
