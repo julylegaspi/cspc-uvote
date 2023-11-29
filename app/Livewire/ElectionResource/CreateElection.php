@@ -48,7 +48,6 @@ class CreateElection extends Component
 
     public function save()
     {
-        dd($this->course);
         $data = $this->validate();
         activity()->log("created Election.");
 
