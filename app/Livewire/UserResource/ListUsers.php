@@ -9,9 +9,12 @@ use Livewire\Component;
 use App\Models\Partylist;
 use App\Models\Department;
 use Illuminate\Support\Str;
+use App\Imports\UsersImport;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 class ListUsers extends Component
 {
@@ -46,6 +49,8 @@ class ListUsers extends Component
     public $courses;
     public $sections = [];
     public $partylists;
+
+    public $import_file;
 
     public function mount()
     {
