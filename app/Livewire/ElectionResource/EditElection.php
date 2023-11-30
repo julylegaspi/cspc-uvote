@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Election;
 use App\Models\Position;
 use App\Models\Partylist;
+use App\Models\Department;
 use App\Models\Organization;
 use App\Services\ElectionService;
 
@@ -20,6 +21,7 @@ class EditElection extends Component
     public $end_date = "";
     public $partylist = [];
     public $course = [];
+    public $department = [];
 
     public $candidates = [];
 
@@ -74,6 +76,15 @@ class EditElection extends Component
         'candidates.*.candidates.*.user.required' => 'Please select a candidate.',
         'candidates.*.candidates.*.user.distinct' => 'The candidate user field has a duplicate value',
     ];
+
+    public function getCourses()
+    {
+        $courses = Course::whereIn('department_id', $this->department)->pluck('id');
+        $this->course = [];
+        foreach ($courses as $course_id) {
+            array_push($this->course, $course_id);
+        }
+    }
 
     public function update()
     {
@@ -147,14 +158,14 @@ class EditElection extends Component
     
     public function render()
     {
-        $courses = Course::with('department')->get();
+        $departments = Department::orderBy('name', 'asc')->with('courses')->get();
         $organizations = Organization::orderBy('name', 'asc')->get();
         $partylists = Partylist::orderBy('name', 'asc')->get();
         $positions = Position::orderBy('id', 'asc')->get();
         $users = User::orderBy('name', 'asc')->get();
 
         return view('livewire.election-resource.edit-election', [
-            'courses' => $courses,
+            'departments' => $departments,
             'organizations' => $organizations,
             'partylists' => $partylists,
             'positions' => $positions,

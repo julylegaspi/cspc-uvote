@@ -185,14 +185,24 @@
             <div
                 class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                 <p class="mb-4 text-xl font-bold leading-none text-gray-900 sm:text-2xl dark:text-white">Voters</p>
-                @foreach ($courses as $key => $course)
-                    <div class="flex items-center mb-4">
-                        <input id="{{ $key }}" wire:model="course" type="checkbox"
-                            value="{{ $course->id }}"
+                @foreach ($departments as $departmentKey => $departmentValue)
+                    <p>
+                        <input id="department-{{ $departmentKey }}" wire:model="department" type="checkbox"
+                            value="{{ $departmentValue->id }}" wire:click="getCourses"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="{{ $key }}"
-                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $course->name }}</label>
-                    </div>
+                        <label for="department-{{ $departmentKey }}"
+                            class="ml-2 text-sm font-bold text-gray-900 dark:text-gray-300">{{ $departmentValue->name }}</label>
+                    </p>
+                    
+                    @foreach ($departmentValue->courses as $courseKey => $course)
+                        <p class="ml-6">
+                            <input id="course-{{ $courseKey }}" wire:model="course" type="checkbox"
+                                value="{{ $course->id }}"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="course-{{ $courseKey }}"
+                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $course->name }}</label>
+                        </p>
+                    @endforeach
                 @endforeach
             </div>
         </div>
