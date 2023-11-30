@@ -3,18 +3,14 @@
 namespace App\Livewire\UserResource;
 
 use App\Models\User;
-use App\Models\Course;
 use App\Models\Section;
 use Livewire\Component;
 use App\Models\Partylist;
 use App\Models\Department;
 use Illuminate\Support\Str;
-use App\Imports\UsersImport;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Validator;
 
 class ListUsers extends Component
 {
