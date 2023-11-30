@@ -52,7 +52,7 @@
                                     @else
                                         <li role="presentation" class="mb-1">
                                             <button type="button"
-                                                class="w-full p-4 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                                class="w-full p-4 text-blue-700 bg-blue-100 border border-blue-300 rounded-lg dark:bg-gray-800 dark:border-blue-800 dark:text-blue-400"
                                                 id="position{{ $loop->index }}-tab"
                                                 data-tabs-target="#position{{ $loop->index }}" type="button"
                                                 role="tab" aria-controls="position{{ $loop->index }}"
