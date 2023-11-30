@@ -31,6 +31,8 @@ class Voting extends Component
 
     public $readyToLoad = false;
 
+    public $voted_positions = [];
+
     public function loadElection(): void
     {
         $this->readyToLoad = true;
@@ -164,6 +166,20 @@ class Voting extends Component
         Mail::to(auth()->user()->email)->send(new VoterConfirmation($mail_data));
 
         return redirect()->route('thank-you.index', $this->election);
+    }
+
+    public function toggleTabColor($position)
+    {
+        if(!in_array($position, $this->voted_positions))
+        {
+            array_push($this->voted_positions, $position);
+        }
+    }
+
+    public function clearVotes()
+    {
+        $this->votes = [];
+        $this->voted_positions = [];
     }
 
     #[Layout('components.layouts.guest.app')]

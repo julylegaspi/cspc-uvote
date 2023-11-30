@@ -18,14 +18,52 @@
                         <div class="mb-4 border-gray-200 dark:border-gray-700">
                             <ul class=" text-center" id="myTab" data-tabs-toggle="#electionTabContent" role="tablist">
                                 @foreach ($candidates as $key => $position)
-                                    <li role="presentation">
+                                    {{-- <li role="presentation">
                                         <button
                                             class="@if ($loop->first) inline-block p-4 border-b-2 rounded-t-lg @else inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 @endif"
                                             id="position{{ $loop->index }}-tab"
                                             data-tabs-target="#position{{ $loop->index }}" type="button"
                                             role="tab" aria-controls="position{{ $loop->index }}"
-                                            aria-selected="false">{{ $key }}</button>
-                                    </li>
+                                            aria-selected="false">
+                                            {{ $key }}
+                                        </button>
+                                    </li> --}}
+                                    @if (in_array($key, $voted_positions))
+                                        <li role="presentation" class="mb-1">
+                                            <button type="button"
+                                                class="w-full p-4 text-green-700 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:border-green-800 dark:text-green-400"
+                                                id="position{{ $loop->index }}-tab"
+                                                data-tabs-target="#position{{ $loop->index }}" type="button"
+                                                role="tab" aria-controls="position{{ $loop->index }}"
+                                                aria-selected="false">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="sr-only">{{ $key }}</span>
+                                                    <h3 class="font-medium">{{ $key }}</h3>
+                                                    <svg class="w-4 h-4" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 16 12">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M1 5.917 5.724 10.5 15 1.5" />
+                                                    </svg>
+                                                </div>
+                                            </button>
+                                        </li>
+                                    @else
+                                        <li role="presentation" class="mb-1">
+                                            <button type="button"
+                                                class="w-full p-4 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                                                id="position{{ $loop->index }}-tab"
+                                                data-tabs-target="#position{{ $loop->index }}" type="button"
+                                                role="tab" aria-controls="position{{ $loop->index }}"
+                                                aria-selected="false">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="sr-only">{{ $key }}</span>
+                                                    <h3 class="font-medium">{{ $key }}</h3>
+                                                </div>
+                                            </button>
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                         </div>
@@ -45,6 +83,7 @@
                                     @foreach ($candidate as $cKey => $cValue)
                                         <li class="text-center">
                                             <input type="radio" id="{{ $cValue->user->id }}"
+                                                wire:click="toggleTabColor('{{ $key }}')"
                                                 wire:model="votes.{{ $cValue['position']->id }}"
                                                 value="{{ $cValue->user->id }}" class="hidden peer">
                                             <label for="{{ $cValue->user->id }}"
@@ -79,7 +118,8 @@
                         @endforeach
                     </div>
 
-                    <button wire:click="showReview" type="button" data-modal-target="review-modal" data-modal-toggle="review-modal"
+                    <button wire:click="showReview" type="button" data-modal-target="review-modal"
+                        data-modal-toggle="review-modal"
                         class="mt-3 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Review and Submit
                         <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -89,15 +129,10 @@
                         </svg>
                     </button>
 
-                    {{-- <button onclick="return confirm('You are about to submit your vote. Continue?')" type="submit"
-                        class="mt-3 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Submit vote
-                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </button> --}}
+                    <button type="button" wire:click="clearVotes"
+                        class="mt-3 px-6 py-3.5 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Clear votes
+                    </button>
 
                 </div>
             </div>
@@ -188,24 +223,26 @@
 
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
-                    @if($review == 'yes')
-                    @forelse ($votes as $positionKey => $candidate_id)
-                        
-                        <h2 class="text-lg leading-5 font-semibold text-gray-900 dark:text-white">{{ $loop->index + 1}}. {{ \App\Models\Position::find($positionKey)->name }}</h2>
-                        <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
-                            <li class="flex items-center ml-4">
-                                <svg class="w-3.5 h-3.5 me-2 mr-1 text-green-500 dark:text-green-400 flex-shrink-0"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                </svg>
-                                {{ \App\Models\User::find($candidate_id)->name }} - {{ \App\Models\User::find($candidate_id)->partylist->name ?? 'No Partylist' }}
-                            </li>
-                        </ul>
-                    @empty
-                        <p class="text-red-600 dark:text-red-500">Noting to see here...you may want to select at least one candidate.</p>
-                    @endforelse
+                    @if ($review == 'yes')
+                        @forelse ($votes as $positionKey => $candidate_id)
+                            <h2 class="text-lg leading-5 font-semibold text-gray-900 dark:text-white">
+                                {{ $loop->index + 1 }}. {{ \App\Models\Position::find($positionKey)->name }}</h2>
+                            <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                <li class="flex items-center ml-4">
+                                    <svg class="w-3.5 h-3.5 me-2 mr-1 text-green-500 dark:text-green-400 flex-shrink-0"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                    </svg>
+                                    {{ \App\Models\User::find($candidate_id)->name }} -
+                                    {{ \App\Models\User::find($candidate_id)->partylist->name ?? 'No Partylist' }}
+                                </li>
+                            </ul>
+                        @empty
+                            <p class="text-red-600 dark:text-red-500">Noting to see here...you may want to select at
+                                least one candidate.</p>
+                        @endforelse
 
                     @endif
 
