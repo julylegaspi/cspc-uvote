@@ -104,7 +104,7 @@ class ListSections extends Component
     {
         if (!empty($this->query))
         {
-            $sections = Section::where('name', 'like', '%'.$this->query.'%')->get();
+            $sections = Section::where('name', 'like', '%'.$this->query.'%')->paginate(10);
         } elseif (!empty($this->course)) {
             if ($this->level == '')
             {
@@ -112,9 +112,9 @@ class ListSections extends Component
             }
             $sections = Section::where('course_id', $this->course)
                         ->where('level', $this->level)
-                        ->get();
+                        ->paginate(10);
         } else {
-            $sections = Section::where('name', 'like', '%'.$this->query.'%')->get();
+            $sections = Section::where('name', 'like', '%'.$this->query.'%')->paginate(10);
         }
 
         $departments = Department::with('courses')->get();

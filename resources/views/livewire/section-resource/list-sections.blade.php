@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    {{-- {{ $sections->links() }} --}}
+    {{ $sections->links() }}
 
     <!-- Create Section -->
     <div id="create-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" wire:ignore.self
