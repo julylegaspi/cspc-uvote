@@ -49,6 +49,7 @@ use App\Http\Controllers\DownloadUsersTemplateController;
 use App\Livewire\OrganizationResource\CreateOrganization;
 use App\Http\Controllers\DownloadElectionResultController;
 use App\Http\Controllers\ImportUserController;
+use App\Http\Controllers\PrintUserController;
 
 Route::middleware(['guest', 'preventBackHistory'])->group(function() {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -125,6 +126,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::get('/download-users-template', DownloadUsersTemplateController::class)->name('download.users.template');
     Route::post('/download-users-template', ImportUserController::class)->name('import.users.template');
+
+    Route::get('/print-users/{course}/{section}', PrintUserController::class)->name('print.users');
 });
 
 Route::middleware(['auth'])->group(function () {

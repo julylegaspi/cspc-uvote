@@ -3,6 +3,7 @@
 namespace App\Livewire\UserResource;
 
 use App\Models\User;
+use App\Models\Course;
 use App\Models\Section;
 use Livewire\Component;
 use App\Models\Partylist;
@@ -11,6 +12,7 @@ use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class ListUsers extends Component
 {
@@ -23,9 +25,10 @@ class ListUsers extends Component
     public $query = '';
     
     public $name;
+    public $username;
     public $email;
     public $student_id;
-    public $course;
+    public $course = 0;
     public $section;
     public $gender;
     public $photo;
@@ -48,6 +51,9 @@ class ListUsers extends Component
 
     public $import_file;
 
+    public $year_count = '';
+    public $level = 0;
+
     public function mount()
     {
         $this->departments = Department::with('courses')->get();
@@ -68,7 +74,8 @@ class ListUsers extends Component
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email:filter',
+            'email' => 'required_without:username',
+            'username' => 'required_without:email',
             'is_admin' => 'required|boolean',
             // 'password' => 'required',
             'photo' => 'nullable|image|max:1024'
@@ -96,8 +103,10 @@ class ListUsers extends Component
             $photo = $this->photo->storeAs('user-photo', $imageName);
         }
 
+        $password = Str::random(6);
         User::create([
             'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
             'student_id' => $this->student_id,
             'course_id' => $this->course,
@@ -111,7 +120,8 @@ class ListUsers extends Component
             'organizational_affiliation' => $this->organizational_affiliation,
             'notable_achievements' => $this->notable_achievements,
             'platform' => $this->platform,
-            'password' => Hash::make('password'),
+            'password' => Hash::make($password),
+            'encrypted_password' => Crypt::encryptString($password),
         ]);
 
         session()->flash('success', 'User created.');
@@ -130,6 +140,7 @@ class ListUsers extends Component
         }
 
         $this->name = $user->name;
+        $this->username = $user->username;
         $this->email = $user->email;
         $this->student_id = $user->student_id;
         $this->course = $user->course_id;
@@ -158,6 +169,7 @@ class ListUsers extends Component
         }
 
         $this->user->name = $this->name;
+        $this->user->username = $this->username;
         $this->user->email = $this->email;
         $this->user->student_id = $this->student_id;
         $this->user->course_id = $this->course;
@@ -195,6 +207,7 @@ class ListUsers extends Component
     public function cancel()
     {
         $this->name = "";
+        $this->username = "";
         $this->email = "";
         $this->student_id = "";
         $this->course = "";
@@ -215,13 +228,24 @@ class ListUsers extends Component
     public function render()
     {
         activity()->log("viewed Users.");
-        $users = User::where('name', 'like', '%'.$this->query.'%')
+
+        if (!empty($this->level))
+        {
+            $users = User::where('course_id', $this->course)
+                ->where('section_id', $this->level)
+                ->paginate(10);
+        } else {
+            $users = User::where('name', 'like', '%'.$this->query.'%')
                 ->orWhere('email', 'like', '%'.$this->query.'%')
                 ->with('course', 'section')
                 ->paginate(10);
+        }
+
+        $courses = Course::orderBy('name', 'asc')->get();
 
         return view('livewire.user-resource.list-users', [
             'users' => $users,
+            'courses' => $courses,
         ]);
     }
 }

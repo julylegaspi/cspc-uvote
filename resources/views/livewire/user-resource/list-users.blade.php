@@ -18,6 +18,10 @@
                 class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                 Import from CSV
             </button>
+            <a href="{{ route('print.users', ['course' => $course, 'section' => $level]) }}" target="_blank" onclick="return confirm('Print current results?')"
+                class="ml-2 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                Print
+            </a>
         </div>
         <button type="button" data-modal-target="create-modal" data-modal-toggle="create-modal"
             class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
@@ -29,7 +33,42 @@
         <div class="overflow-x-auto">
             <div class="inline-block min-w-full align-middle">
                 <div class="overflow-hidden shadow">
-                    <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+                    <div
+                        class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+
+                        <div class="grid grid-cols-2 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label for="course"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by course</label>
+                                <select id="course" wire:model="course" wire:change="getSections"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">Show all</option>
+                                    @foreach ($departments as $department)
+                                        <optgroup label="{{ $department->name }}">
+                                            @foreach ($department->courses as $course)
+                                                <option value="{{ $course->id }}">{{ $course->code }} -
+                                                    {{ $course->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="level"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Section</label>
+                                <select id="level" wire:model.live="level"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">Select section</option>
+                                    @foreach ($sections as $section)
+                                        <option value="{{ $section->id }}">{{ $section->level }} - {{ $section->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <table class="mt-4 min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
                         <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
                                 <th scope="col"
@@ -38,15 +77,15 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Email
-                                </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                     Course
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                     Section
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    Username
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -64,9 +103,6 @@
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->name }}</td>
-                                    <td
-                                        class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->email }}</td>
 
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -74,7 +110,12 @@
 
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->section->name ?? 'N/A' }}</td>
+                                        {{ $user->section->level }} - {{ $user->section->name ?? 'N/A' }}</td>
+
+                                    <td
+                                        class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $user->username }}</td>
+
                                     <td
                                         class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user::ROLE[$user->is_admin] }}</td>
@@ -176,9 +217,20 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-2">
+                            <div class="col-span-2">
+                                <label for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <input type="text" id="username" wire:model="username"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @error('username')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2">
 
                             <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email*</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" id="email" wire:model="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @error('email')
@@ -377,9 +429,20 @@
                             @enderror
                         </div>
                         <div class="sm:col-span-2">
+                            <div class="col-span-2">
+                                <label for="username"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <input type="text" id="username" wire:model="username"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @error('username')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2">
 
                             <label for="email"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email*</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                             <input type="email" id="email" wire:model="email"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             @error('email')

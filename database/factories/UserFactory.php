@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Partylist;
 use App\Models\User;
+use App\Models\Partylist;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,11 +22,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $password = Str::random(6);
         return [
             'name' => $this->faker->name(),
+            'username' => $this->faker->username(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make($password),
+            'encrypted_password' => Crypt::encryptString($password),
             'course_id' => 1,
             'section_id' => 1,
             'gender' => $this->faker->randomElement(['m', 'f']),
